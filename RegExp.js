@@ -99,6 +99,38 @@
 // const result = text.match(/\[[^\]]+\]\((|http(s?):\/\/|\/)?[^\s]+\)/g);
 // console.log(result); // Очікується: ['[Google](https://google.com)', '[MDN](http://developer.mozilla.org)', '[Docs](/local/path)']
 
+// Особисті завдання (10):
+// const text = "Ось тестові картки: 1234-5678-9012-3456, інша – 9876 5432 1098 7654, а 1111222233334444 – не підходить, як і 1234-5678-9012-345.";
+
+// const result = text.match(/\b\d{4}[\-\s]\d{4}[\-\s]\d{4}[\-\s]\d{4}\b/g);
+// console.log(result); // Очікується: ['1234-5678-9012-3456', '9876 5432 1098 7654']
+
+// Особисті завдання (11):
+// const text = "Сьогодні вилітають рейси: AA1234, BZ9999 і ib0350. Також є кодовийі: ZZ123, XY12345, AB12CD.";
+
+// const result = text.match(/\b[a-zA-Z]{2}\d{4}\b/g);
+// console.log(result); // Очікується: ['AA1234', 'BZ9999', 'ib0350']
+
+// Особисті завдання (11):
+// const text = `
+//   <!DOCTYPE html>
+//   <html>
+//     <head>
+//       <title>Головна сторінка</title>
+//       <meta charset="UTF-8">
+//     </head>
+//     <body>
+//       <h1>Ласкаво просимо!</h1>
+//       <title>Неправильний тег у тілі</title>
+//       <p>Контент сайту...</p>
+//     </body>
+//   </html>
+// `;
+
+// const result = text.match(/<title>.*?<\/title>/g);
+// console.log(result); // Очікується: ['<title>Головна сторінка</title>', '<title>Неправильний тег у тілі</title>']
+
+
 
 // \s - пробіл
 // \w - a-zA-Z0-9_
