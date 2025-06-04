@@ -51,11 +51,53 @@
 //console.log(result); // Очікується: ['3', '15', '1000']
 
 // Особисті завдання (3):
-const text = "Привіт <@John123/>, поговори з <@Anna/> і <@Dima_01/>";
+// const text = "Привіт <@John123/>, поговори з <@Anna/> і <@Dima_01/>";
 
-const result = text.match(/<@\w+\/>/g);
-console.log(result); // Очікується: ['<@John123/>', '<@Anna/>', '<@Dima_01/>']
+// const result = text.match(/<@\w+\/>/g);
+//console.log(result); // Очікується: ['<@John123/>', '<@Anna/>', '<@Dima_01/>']
 
+// Особисті завдання (4):
+// const text = "Це #тестовий пост з #хештегами, перевірка #Regex_101! #";
+
+// const result = text.match(/#[\wа-яА-ЯіІїЇєЄґҐ]+/gu);
+// console.log(result); // Очікується: ['#тестовий', '#хештегами', '#Regex_101']
+
+// Особисті завдання (5):
+// const text = "Hello world. This is a Test. Let's Meet at Main Street I.";
+
+// const result = text.match(/[A-Z][a-z]+/g);
+// console.log(result); // Очікується: ['Hello', 'This', 'Test', 'Let', 'Meet', 'Main', 'Street']
+
+
+// Особисті завдання (6):
+// const text = "Мій номер +380501234567, а ще є запасний 063-123-45-67 і 380991234567. Є ще якийсь 1234567 — але це не номер.";
+
+// const result = text.match(/(\+380|380|0)+\d{2}\-?\d{3}\-?\d{2}\-?\d{2}/g);
+// console.log(result); // Очікується: ['+380501234567', '063-123-45-67', '380991234567']
+
+// Особисті завдання (7):
+// const text = "Книга коштує 300 грн, блокнот — 49.99грн, а ручка - 15 грн. Це не ціна: 500 доларів.";
+
+// const result = text.match(/\d+([.,]\d+)?\s?грн/g);
+// console.log(result); // Очікується: ['300 грн', '49.99грн', '15 грн']
+
+// Особисті завдання (8):
+// const text = "Зайди на https://example.com, також дивись http://test.org або www.something.net і просто site.ua";
+
+// const result = text.match(/((http|https):\/\/)?(www\.)?[\w.\-]+[a-z.]{2}/g);
+// console.log(result); // Очікується: ['https://example.com', 'http://test.org', 'www.something.net', 'site.ua']
+
+// Особисті завдання (9):
+// const text = "У стилі використано кольори: #fff, #000000, #AbC123, а іноді некоректні: #12, #GGG, #12345.";
+
+// const result = text.match(/#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})\b/g);
+//console.log(result); // Очікується: ['#fff', '#000000', '#AbC123']
+
+// Особисті завдання (9):
+// const text = "Документація тут: [Google](https://google.com), ще можна глянути [MDN](http://developer.mozilla.org) чи просто [Docs](/local/path). Але це не посилання: [Bad](not a url).";
+
+// const result = text.match(/\[[^\]]+\]\((|http(s?):\/\/|\/)?[^\s]+\)/g);
+// console.log(result); // Очікується: ['[Google](https://google.com)', '[MDN](http://developer.mozilla.org)', '[Docs](/local/path)']
 
 
 // \s - пробіл
