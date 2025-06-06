@@ -112,23 +112,23 @@
 // console.log(result); // Очікується: ['AA1234', 'BZ9999', 'ib0350']
 
 // Особисті завдання (11):
-// const text = `
-//   <!DOCTYPE html>
-//   <html>
-//     <head>
-//       <title>Головна сторінка</title>
-//       <meta charset="UTF-8">
-//     </head>
-//     <body>
-//       <h1>Ласкаво просимо!</h1>
-//       <title>Неправильний тег у тілі</title>
-//       <p>Контент сайту...</p>
-//     </body>
-//   </html>
-// `;
+const text = `
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>Головна сторінка</title>
+      <meta charset="UTF-8">
+    </head>
+    <body>
+      <h1>Ласкаво просимо!</h1>
+      <title>Неправильний тег у тілі</title>
+      <p>Контент сайту...</p>
+    </body>
+  </html>
+`;
 
-// const result = text.match(/<title>.*?<\/title>/g);
-// console.log(result); // Очікується: ['<title>Головна сторінка</title>', '<title>Неправильний тег у тілі</title>']
+const result = text.match(/<title>.*?<\/title>/g);
+console.log(result); // Очікується: ['<title>Головна сторінка</title>', '<title>Неправильний тег у тілі</title>']
 
 
 
