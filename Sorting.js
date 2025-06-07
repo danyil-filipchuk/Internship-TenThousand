@@ -1,4 +1,4 @@
-// bubbleSort:
+// bubbleSort (Сортування бульбашкою):
 
 // function bubbleSort(arr){
 //     for (let i = 0; i < arr.length; i++) {
@@ -16,7 +16,7 @@
 // const test = [2,5,42,15,25,10];
 // console.log(bubbleSort(test));
 
-// selectionSort:
+// selectionSort (Сортування вибором):
 
 // function selectionSort(arr){
 //     for (let i = 0; i < arr.length-1; i++) {
@@ -38,7 +38,7 @@
 // const test = [2,5,42,15,25,10];
 // console.log(selectionSort(test));
 
-// insertionSort:
+// insertionSort (Сортування включенням):
 
 // function insertionSort(arr){
 //     for (let i = 1; i < arr.length; i++) {
