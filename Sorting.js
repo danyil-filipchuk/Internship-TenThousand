@@ -3,7 +3,7 @@
 // function bubbleSort(arr){
 //     for (let i = 0; i < arr.length; i++) {
 //         for (let j = 0; j < arr.length - 1 - i; j++) {
-//             if (arr[j] > arr[j+1]) {
+//             if (arr[j] > arr[j+1]) { // або поставити < для сортування у зворотню сторону
 //                 let temp = arr[j];
 //                 arr[j] = arr[j+1];
 //                 arr[j+1] = temp;
@@ -18,22 +18,78 @@
 
 // selectionSort:
 
-function selectionSort(arr){
-    for (let i = 0; i < arr.length-1; i++) {
-        let minIndex = i;
-        for (let j = i+1; j < arr.length; j++) {
-            if (arr[j] < arr[minIndex]) {
-                minIndex = j;
-            }
-        }
-        if (minIndex !== i) {
-            let temp = arr[i];
-            arr[i] = arr[minIndex];
-            arr[minIndex] = temp;
-        }
-    }
-    return arr;
-}
+// function selectionSort(arr){
+//     for (let i = 0; i < arr.length-1; i++) {
+//         let minIndex = i;
+//         for (let j = i+1; j < arr.length; j++) {
+//             if (arr[j] < arr[minIndex]) { // або поставити < для сортування у зворотню сторону
+//                 minIndex = j;
+//             }
+//         }
+//         if (minIndex !== i) {
+//             let temp = arr[i];
+//             arr[i] = arr[minIndex];
+//             arr[minIndex] = temp;
+//         }
+//     }
+//     return arr;
+// }
+//
+// const test = [2,5,42,15,25,10];
+// console.log(selectionSort(test));
 
-const test = [2,5,42,15,25,10];
-console.log(selectionSort(test));
+// insertionSort:
+
+// function insertionSort(arr){
+//     for (let i = 1; i < arr.length; i++) {
+//         let temp = arr[i];
+//         let j = i - 1;
+//         while (j >= 0 && arr[j] > temp) { // або поставити < для сортування у зворотню сторону
+//             arr[j+1] = arr[j];
+//             j--;
+//         }
+//         arr[j+1] = temp;
+//     }
+//     return arr;
+// }
+//
+// const test = [2,5,42,15,25,10];
+// console.log(insertionSort(test));
+
+// mergeSort:
+
+// function mergeSort(arr) {
+//     if (arr.length <= 1) {
+//         return arr;
+//     }
+//
+//     const middle = Math.floor(arr.length / 2);
+//     const left = mergeSort(arr.slice(0, middle));
+//     const right = mergeSort(arr.slice(middle));
+//
+//     let i = 0;
+//     let j = 0;
+//     const sortedArr = [];
+//
+//     while (i < left.length && j < right.length) {
+//         if (left[i] === right[j]) {
+//             sortedArr.push(left[i], right[j]);
+//             i++;
+//             j++;
+//         } else if (left[i] < right[j]) { // або поставити < для сортування у зворотню сторону
+//             sortedArr.push(left[i]);
+//             i++;
+//         } else {
+//             sortedArr.push(right[j]);
+//             j++;
+//         }
+//     }
+//
+//     return  sortedArr
+//         .concat(left.slice(i))
+//         .concat(right.slice(j));
+// }
+//
+// const test = [2,5,42,15,25,10];
+// console.log(mergeSort(test));
+
