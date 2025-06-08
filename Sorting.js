@@ -1,5 +1,5 @@
-// bubbleSort (Сортування бульбашкою):
-
+// // Bubble Sort (Сортування бульбашкою):
+//
 // function bubbleSort(arr){
 //     for (let i = 0; i < arr.length; i++) {
 //         for (let j = 0; j < arr.length - 1 - i; j++) {
@@ -13,11 +13,11 @@
 //     return arr;
 // }
 //
-// const test = [2,5,42,15,25,10];
-// console.log(bubbleSort(test));
-
-// selectionSort (Сортування вибором):
-
+// const array1 = [2,5,42,15,25,10];
+// console.log(bubbleSort(array1));
+//
+// // Selection Sort (Сортування вибором):
+//
 // function selectionSort(arr){
 //     for (let i = 0; i < arr.length-1; i++) {
 //         let minIndex = i;
@@ -35,11 +35,11 @@
 //     return arr;
 // }
 //
-// const test = [2,5,42,15,25,10];
-// console.log(selectionSort(test));
-
-// insertionSort (Сортування включенням):
-
+// const array2 = [2,5,42,15,25,10];
+// console.log(selectionSort(array2));
+//
+// // Insertion Sort (Сортування включенням):
+//
 // function insertionSort(arr){
 //     for (let i = 1; i < arr.length; i++) {
 //         let temp = arr[i];
@@ -53,11 +53,11 @@
 //     return arr;
 // }
 //
-// const test = [2,5,42,15,25,10];
-// console.log(insertionSort(test));
-
-// mergeSort:
-
+// const array3 = [2,5,42,15,25,10];
+// console.log(insertionSort(array3));
+//
+// // Merge Sort (Сортування злиттям):
+//
 // function mergeSort(arr) {
 //     if (arr.length <= 1) {
 //         return arr;
@@ -90,6 +90,22 @@
 //         .concat(right.slice(j));
 // }
 //
-// const test = [2,5,42,15,25,10];
-// console.log(mergeSort(test));
+// const array4 = [2,5,42,15,25,10];
+// console.log(mergeSort(array4));
 
+// Quick Sort (Швидке сортування);
+
+function quickSort(arr) {
+    if (arr.length <= 1) {
+        return arr;
+    }
+    const pivot = arr[Math.floor(arr.length / 2)];
+    const left = arr.filter(n => n < pivot); // або поставити > для сортування у зворотню сторону
+    const right = arr.filter(n => n > pivot); // або поставити < для сортування у зворотню сторону
+    const center = arr.filter(n => n === pivot);
+
+    return quickSort(left).concat(center, quickSort(right));
+}
+
+const array5 = [2,5,42,15,25,10];
+console.log(quickSort(array5));
