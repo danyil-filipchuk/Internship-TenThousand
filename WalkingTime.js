@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { from: '2025-06-08T17:03:12+00:00', to: '2025-06-08T18:30:24+00:00' },
         { from: '2025-06-08T18:49:11+00:00', to: '2025-06-08T19:05:55+00:00' },
         { from: '2025-06-08T19:29:46+00:00', to: '2025-06-08T22:15:04+00:00' },
-        { from: '2025-06-08T22:42:28+00:00', to: '2025-06-08T22:43:31+00:00' }
     ];
 
     const events = data
@@ -30,13 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector('.count').textContent = `${data.length} Visits`;
 
-    const timelineEl= document.querySelector('.timeline');
-    const trackWidth= timelineEl.clientWidth;
-    const totalSeconds= 24 * 3600;
-    const pxPerSec= (trackWidth / totalSeconds) * 0.75;
-    const minGapPx= 5;
-    const circlePx= 24;
-    const overlapSec= 15 * 60;
+    const timelineEl = document.querySelector('.timeline');
+    const trackWidth  = timelineEl.clientWidth;
+    const totalSeconds = 24 * 3600;
+    const pxPerSec     = (trackWidth / totalSeconds) * 0.75;
+    const minGapPx     = 5;
+    const circlePx     = 24;
+    const overlapSec   = 15 * 60;
 
     let prevEndSec = 0;
 
@@ -67,13 +66,17 @@ document.addEventListener('DOMContentLoaded', () => {
             ? durationSec * pxPerSec
             : circlePx;
 
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('walk-wrapper');
+        wrapper.style.width = `${gapPx + widthPx}px`;
+
         const dot = document.createElement('div');
         dot.classList.add('walk');
-        dot.style.marginLeft = `${gapPx}px`;
         dot.style.width = `${widthPx}px`;
         if (durationSec > 3600) dot.classList.add('duration');
 
-        timelineEl.appendChild(dot);
+        wrapper.appendChild(dot);
+        timelineEl.appendChild(wrapper);
 
         prevEndSec = endSec;
     });

@@ -48,6 +48,14 @@ html, body {
     overflow: visible;
 }
 
+.walk-wrapper {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    overflow: visible;
+    justify-content: flex-end;
+}
+
 .walk {
     height: 24px;
     border-radius: 12px;
