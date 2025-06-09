@@ -1,4 +1,7 @@
+// весь нижче прописаний код виконується при завантажені сторінки
 document.addEventListener('DOMContentLoaded', () => {
+
+    // отриманий масив об'єктів
     const data = [
         { from: '2025-06-08T05:56:28+00:00', to: '2025-06-08T05:57:10+00:00' },
         { from: '2025-06-08T06:01:01+00:00', to: '2025-06-08T06:49:31+00:00' },
@@ -12,72 +15,97 @@ document.addEventListener('DOMContentLoaded', () => {
         { from: '2025-06-08T19:29:46+00:00', to: '2025-06-08T22:15:04+00:00' },
     ];
 
-    const events = data
-        .slice()
-        .sort((a, b) => new Date(a.from) - new Date(b.from));
+    // на всяк випадок сортуємо масив по часу за зростанням, але з використанням методу slice, щоб уникнути мутації оригінального масиву
+    const sortedData = data.slice().sort((a, b) => new Date(a.from) - new Date(b.from));
 
-    const dateEl = document.querySelector('.date');
-    if (events.length) {
-        const d = new Date(events[0].from);
-        dateEl.textContent = d.toLocaleDateString('en-GB', {
+    // за допомогою селектору визначаємо та виставляємо дату на сторінці, виходячи з першого об'єкта масиву
+    // або показуємо 'No visits', якщо отриманий масив пустий
+    const headerDate = document.querySelector('.header-date');
+    if (sortedData.length > 0) {
+        const headerDateFormat = new Date(sortedData[0].from);
+        headerDate.textContent = headerDateFormat.toLocaleDateString('en-GB', {
             weekday: 'long',
             day:     'numeric',
             month:   'long',
             year:    'numeric'
         });
+    } else {
+        headerDate.textContent = 'No visits';
     }
 
-    document.querySelector('.count').textContent = `${data.length} Visits`;
+    // за допомогою селектору визначаємо та виставляємо на сторінці кількість прогулянок, виходячи з кількості об'єктів в масиві
+    // або показуємо 'Home Day', якщо отриманий масив пустий
+    const headerCount = document.querySelector('.header-count');
+    if (sortedData.length > 0) {
+        headerCount.textContent = sortedData.length + ' Visits';
+    } else {
+        headerCount.textContent = 'Home Day';
+    }
 
-    const timelineEl = document.querySelector('.timeline');
-    const trackWidth  = timelineEl.clientWidth;
-    const totalSeconds = 24 * 3600;
-    const pxPerSec     = (trackWidth / totalSeconds) * 0.75;
-    const minGapPx     = 5;
-    const circlePx     = 24;
-    const overlapSec   = 15 * 60;
+    // оголошуємо основні необхідні змінні для подальшіх дій та розрахунків
+    const fullDayLine= document.querySelector('.full-day-line'); // знаходимо селектор для основної полоси
+    const totalWidth= fullDayLine.clientWidth; // знаходимо ширину основної полоси
+    const totalSecondsInDay= 60 * 60 * 24; // рахуємо кількість секунд в добі
+    const oneSecondWidth= (totalWidth / totalSecondsInDay) * 0.75; // знаходимо приблизну ширину та кількість пікселів на одну секунду
+    const minimumGapWidth= 5; // вказуємо мінімальну ширину між прогулянками
+    const minimumCircleWidth= 24; // вказуємо мінімальну ширину кожної прогулянки
+    const fifteenMinutes= 15 * 60; // рахуємо кількість секунд з 15 хвилин
 
-    let prevEndSec = 0;
+    let prevEndSec = 0; //
 
-    events.forEach((ev, i) => {
-        const start = new Date(ev.from);
-        const end   = new Date(ev.to);
+    // перебір кожного елементу (тобто кожної прогулянки) масиву
+    sortedData.forEach((item, index) => {
 
-        const startSec = start.getUTCHours() * 3600 +
-            start.getUTCMinutes() * 60 +
-            start.getUTCSeconds();
-        const endSec   = end.getUTCHours()   * 3600 +
-            end.getUTCMinutes()   * 60 +
-            end.getUTCSeconds();
+        // знаходимо початок та завершення прогулянки у форматі дати
+        const startOfWalk = new Date(item.from);
+        const endOfWalk   = new Date(item.to);
 
-        let gapPx;
-        const delta = startSec - prevEndSec;
+        // рахуємо кількість секунд від початку доби до початку та до завершення прогулянки
+        const startSec = startOfWalk.getUTCHours() * 3600 + startOfWalk.getUTCMinutes() * 60 + startOfWalk.getUTCSeconds();
+        const endSec   = endOfWalk.getUTCHours()   * 3600 + endOfWalk.getUTCMinutes()   * 60 + endOfWalk.getUTCSeconds();
 
-        if (i === 0) {
-            gapPx = Math.max(startSec * pxPerSec, minGapPx);
-        } else if (delta <= overlapSec) {
-            gapPx = -circlePx / 2;
-        } else {
-            gapPx = Math.max(delta * pxPerSec, minGapPx);
+        let homeTimeWidth; // оголошуємо змінну для подального внесення ширини між прогулянками (тобто час вдома)
+        const differenceBetweenWalks = startSec - prevEndSec; // рахуємо кількість секунд між прогулянками
+
+        if (index === 0) { // для першої прогулянки визначаємо відступ зліва (що більше між загальною шириною з початку доби або мінімальною шириною)
+            homeTimeWidth = Math.max(startSec * oneSecondWidth, minimumGapWidth);
+        } else if (differenceBetweenWalks <= fifteenMinutes) { // якщо між прогулянками було менше 15 хвилин, то елементи повинні налізти один на одного
+            homeTimeWidth = -minimumCircleWidth / 2;
+        } else { // інакше визначаємо відступ зліва (що більше між кількостю секунд між прогулянками або мінімальною шириною)
+            homeTimeWidth = Math.max(differenceBetweenWalks * oneSecondWidth, minimumGapWidth);
         }
 
-        const durationSec = endSec - startSec;
-        const widthPx = durationSec > 3600
-            ? durationSec * pxPerSec
-            : circlePx;
+        const walkDuration = endSec - startSec; // рахуємо час прогулянки (кількість секунд)
+        let walkDurationWidth; // оголошуємо змінну для ширини кожної прогулянки
 
+        // Якщо прогулянка тривала більше однієї години, то визначаємо ширину кожної прогулянки (тобто кількість пікселів)
+        // Якщо прогулнка тривала менше однієї години, то визначаємо мінімальну ширину кожної прогулянки
+        if (walkDuration >= 3600) {
+            walkDurationWidth = walkDuration * oneSecondWidth;
+        } else {
+            walkDurationWidth = minimumCircleWidth;
+        }
+
+        // створюємо HTML елемент - це загальний час вдома ДО прогулянки та самої прогулянки
         const wrapper = document.createElement('div');
         wrapper.classList.add('walk-wrapper');
-        wrapper.style.width = `${gapPx + widthPx}px`;
+        wrapper.style.width = homeTimeWidth + walkDurationWidth + 'px';
 
-        const dot = document.createElement('div');
-        dot.classList.add('walk');
-        dot.style.width = `${widthPx}px`;
-        if (durationSec > 3600) dot.classList.add('duration');
+        // створюємо HTML елемент - це тільки час прогулянки
+        const walkElement = document.createElement('div');
+        walkElement.classList.add('walk-time');
+        walkElement.style.width = walkDurationWidth + 'px';
 
-        wrapper.appendChild(dot);
-        timelineEl.appendChild(wrapper);
+        // Якщо прогулянка тривала більше однієї години, то додаємо клас 'long-walk-time' для зміни кольору в полосі на сторінці
+        if (walkDuration >= 3600) {
+            walkElement.classList.add('long-walk-time');
+        }
 
+        // додаємо в DOM вище створені елементи
+        wrapper.appendChild(walkElement);
+        fullDayLine.appendChild(wrapper);
+
+        // оновлюємо час закінчення попередньої прогулянки, щоб при новому "проході" вірно порахувати різницю часу та відповідно ширину полоси
         prevEndSec = endSec;
     });
 });

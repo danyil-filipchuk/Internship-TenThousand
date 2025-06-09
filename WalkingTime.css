@@ -23,7 +23,7 @@ html, body {
 }
 
 .header,
-.timeline {
+.full-day-line {
     width: 100%;
 }
 
@@ -39,7 +39,7 @@ html, body {
     font-size: 1rem;
 }
 
-.timeline {
+.full-day-line {
     height: 48px;
     background: #D9F0E8;
     border-radius: 24px;
@@ -56,7 +56,7 @@ html, body {
     justify-content: flex-end;
 }
 
-.walk {
+.walk-time {
     height: 24px;
     border-radius: 12px;
     background: #2BAE66;
@@ -64,6 +64,6 @@ html, body {
     transition: width 0.25s ease;
 }
 
-.walk.duration {
+.long-walk-time {
     background: #196F3D;
 }
