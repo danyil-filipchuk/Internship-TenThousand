@@ -2,8 +2,8 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    background: #F0FEFA;
-    font-family: sans-serif;
+    background: linear-gradient(to right, rgba(210, 246, 237, 0.9) 10%, rgba(185, 224, 211, 0.9) 50%);
+    font-family: "Comic Sans MS", sans-serif;
 }
 
 .full-page {
@@ -41,7 +41,7 @@ html, body {
 
 .full-day-line {
     height: 42px;
-    background: #D9F0E8;
+    background: seashell;
     border-radius: 24px;
     display: flex;
     align-items: center;

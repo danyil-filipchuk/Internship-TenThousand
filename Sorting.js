@@ -128,29 +128,29 @@
 // const array6 = [2,5,42,15,25,10];
 // console.log(shellSort(array6));
 //
-// Count Sort (сортування підрахунком):
-
-function countSort(arr) {
-    if (arr.length <= 1) {
-        return arr;
-    }
-
-    const maxValue = Math.max(...arr);
-    const count = new Array(maxValue + 1).fill(0);
-
-    for (const nums of arr) {
-        count[nums]++;
-    }
-
-    const result = [];
-    for (let value = 0; value <= maxValue; value++) {
-        const c = count[value];
-        for (let i = 0; i < c; i++) {
-            result.push(value);
-        }
-    }
-    return result;
-}
-
-const array8 = [2,5,42,15,25,10];
-console.log(countSort(array8));
+// // Count Sort (сортування підрахунком):
+//
+// function countSort(arr) {
+//     if (arr.length <= 1) {
+//         return arr;
+//     }
+//
+//     const maxValue = Math.max(...arr);
+//     const count = new Array(maxValue + 1).fill(0);
+//
+//     for (const nums of arr) {
+//         count[nums]++;
+//     }
+//
+//     const result = [];
+//     for (let value = 0; value <= maxValue; value++) { // для сортування у зворотню сторону - (let value = maxValue; value >= 0; value--)
+//         const c = count[value];
+//         for (let i = 0; i < c; i++) {
+//             result.push(value);
+//         }
+//     }
+//     return result;
+// }
+//
+// const array8 = [2,5,42,15,25,10];
+// console.log(countSort(array8));
