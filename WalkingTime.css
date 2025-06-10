@@ -40,7 +40,7 @@ html, body {
 }
 
 .full-day-line {
-    height: 48px;
+    height: 42px;
     background: #D9F0E8;
     border-radius: 24px;
     display: flex;
@@ -66,4 +66,22 @@ html, body {
 
 .long-walk-time {
     background: #196F3D;
+}
+
+@media (max-width: 1200px) {
+    .father-container {
+        min-width: 70%;
+    }
+}
+
+@media (max-width: 800px) {
+    .father-container {
+        min-width: 90%;
+    }
+}
+
+@media (max-width: 500px) {
+    .father-container {
+        min-width: 90%;
+    }
 }

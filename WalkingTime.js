@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { from: '2025-06-08T17:03:12+00:00', to: '2025-06-08T18:30:24+00:00' },
         { from: '2025-06-08T18:49:11+00:00', to: '2025-06-08T19:05:55+00:00' },
         { from: '2025-06-08T19:29:46+00:00', to: '2025-06-08T22:15:04+00:00' },
+        { from: '2025-06-08T22:29:46+00:00', to: '2025-06-08T22:36:04+00:00' }
     ];
 
     // на всяк випадок сортуємо масив по часу за зростанням, але з використанням методу slice, щоб уникнути мутації оригінального масиву
@@ -51,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const minimumCircleWidth= 24; // вказуємо мінімальну ширину кожної прогулянки
     const fifteenMinutes= 15 * 60; // рахуємо кількість секунд з 15 хвилин
 
-    let prevEndSec = 0; //
+    let previousEndOfWalk = 0; // час закінчення попередньої прогулянки
 
     // перебір кожного елементу (тобто кожної прогулянки) масиву
     sortedData.forEach((item, index) => {
@@ -64,8 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const startSec = startOfWalk.getUTCHours() * 3600 + startOfWalk.getUTCMinutes() * 60 + startOfWalk.getUTCSeconds();
         const endSec   = endOfWalk.getUTCHours()   * 3600 + endOfWalk.getUTCMinutes()   * 60 + endOfWalk.getUTCSeconds();
 
-        let homeTimeWidth; // оголошуємо змінну для подального внесення ширини між прогулянками (тобто час вдома)
-        const differenceBetweenWalks = startSec - prevEndSec; // рахуємо кількість секунд між прогулянками
+        let homeTimeWidth; // оголошуємо змінну для подальшого внесення ширини між прогулянками (тобто час вдома)
+        const differenceBetweenWalks = startSec - previousEndOfWalk; // рахуємо кількість секунд між прогулянками
 
         if (index === 0) { // для першої прогулянки визначаємо відступ зліва (що більше між загальною шириною з початку доби або мінімальною шириною)
             homeTimeWidth = Math.max(startSec * oneSecondWidth, minimumGapWidth);
@@ -106,6 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
         fullDayLine.appendChild(wrapper);
 
         // оновлюємо час закінчення попередньої прогулянки, щоб при новому "проході" вірно порахувати різницю часу та відповідно ширину полоси
-        prevEndSec = endSec;
+        previousEndOfWalk = endSec;
     });
 });

@@ -92,20 +92,65 @@
 //
 // const array4 = [2,5,42,15,25,10];
 // console.log(mergeSort(array4));
+//
+// // Quick Sort (Швидке сортування);
+//
+// function quickSort(arr) {
+//     if (arr.length <= 1) {
+//         return arr;
+//     }
+//     const pivot = arr[Math.floor(arr.length / 2)];
+//     const left = arr.filter(n => n < pivot); // або поставити > для сортування у зворотню сторону
+//     const right = arr.filter(n => n > pivot); // або поставити < для сортування у зворотню сторону
+//     const center = arr.filter(n => n === pivot);
+//
+//     return quickSort(left).concat(center, quickSort(right));
+// }
+//
+// const array5 = [2,5,42,15,25,10];
+// console.log(quickSort(array5));
+//
+// // Shell Sort (сортування Шелла);
+//
+// function shellSort(arr) {
+//     for (let step = Math.floor(arr.length / 2); step > 0; step = Math.floor(step / 2)) {
+//         for (let pass = step; pass < arr.length; pass++) {
+//             for(let replacement = pass - step; replacement >= 0 && arr[replacement] > arr[replacement + step]; replacement -= step) {
+//                 let tmp = arr[replacement];
+//                 arr[replacement] = arr[replacement + step];
+//                 arr[replacement + step] = tmp;
+//             }
+//         }
+//     }
+//     return arr;
+// }
+//
+// const array6 = [2,5,42,15,25,10];
+// console.log(shellSort(array6));
+//
+// Count Sort (сортування підрахунком):
 
-// Quick Sort (Швидке сортування);
-
-function quickSort(arr) {
+function countSort(arr) {
     if (arr.length <= 1) {
         return arr;
     }
-    const pivot = arr[Math.floor(arr.length / 2)];
-    const left = arr.filter(n => n < pivot); // або поставити > для сортування у зворотню сторону
-    const right = arr.filter(n => n > pivot); // або поставити < для сортування у зворотню сторону
-    const center = arr.filter(n => n === pivot);
 
-    return quickSort(left).concat(center, quickSort(right));
+    const maxValue = Math.max(...arr);
+    const count = new Array(maxValue + 1).fill(0);
+
+    for (const nums of arr) {
+        count[nums]++;
+    }
+
+    const result = [];
+    for (let value = 0; value <= maxValue; value++) {
+        const c = count[value];
+        for (let i = 0; i < c; i++) {
+            result.push(value);
+        }
+    }
+    return result;
 }
 
-const array5 = [2,5,42,15,25,10];
-console.log(quickSort(array5));
+const array8 = [2,5,42,15,25,10];
+console.log(countSort(array8));
