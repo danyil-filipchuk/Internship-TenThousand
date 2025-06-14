@@ -8,7 +8,7 @@ const servers = [
 ];
 
 // Тут виявиться масив, де ім’я кожного сервера повторене рівно стільки разів, скільки його вага. Тобто flatMap “розгортає” новий масив ['A', 'B', 'B', 'C']
-    const expandedServers = servers.flatMap(item => Array(item.weight).fill(item.name));
+const expandedServers = servers.flatMap(item => Array(item.weight).fill(item.name));
 
 let counter = 0;
 

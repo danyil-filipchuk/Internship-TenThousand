@@ -21,7 +21,7 @@ function pickServer() {
     return target.name;
 }
 
-// Функція для імітації завершення запитів (випадково зменшує activeConnection)
+// Допоміжна функція для імітації завершення запитів (випадково зменшує activeConnection)
 function releaseConnections() {
     servers.forEach(srv => {
         srv.activeConnection = Math.max(0, srv.activeConnection - Math.floor(Math.random() * 2));
