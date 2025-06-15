@@ -42,7 +42,7 @@ const totalRequests = 15;
 // Імітація обробки запитів
 for (let i = 1; i <= totalRequests; i++) {
     console.log(`Request #${i} - ${pickServers()};`);
-    // Опціональна умова заверення з'єднань
+    // Опціональна умова завершення з'єднань
     if (i % 5 === 0) {
         releaseConnections();
     }
