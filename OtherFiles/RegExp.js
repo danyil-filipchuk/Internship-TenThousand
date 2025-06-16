@@ -130,6 +130,8 @@ const text13 = `
 const result13 = text13.match(/<title>.*?<\/title>/g);
 console.log(result13); // Очікується: ['<title>Головна сторінка</title>', '<title>Неправильний тег у тілі</title>']
 
+
+
 // \s - пробіл
 // \w - a-zA-Z0-9_
 // \d - 0-9

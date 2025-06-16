@@ -1,9 +1,14 @@
+// Locality-Based Load Balancing спрямовує запити до географічно (або мережево) найближчого сервера,
+// зменшуючи затримки та покращуючи якість обслуговування клієнтів
+
+//Список серверів (бекендів)
 const servers = [
-    { name: 'US East (Virginia)',    lat: 37.4316, lon: -78.6569 },
-    { name: 'Europe West (Frankfurt)', lat: 50.1109, lon:   8.6821 },
-    { name: 'Asia East (Tokyo)',      lat: 35.6895, lon: 139.6917 },
+    { name: 'US East (Virginia)', lat: 37.4316, lon: -78.6569 },
+    { name: 'Europe West (Frankfurt)', lat: 50.1109, lon: 8.6821 },
+    { name: 'Asia East (Tokyo)', lat: 35.6895, lon: 139.6917 },
 ];
 
+// Функція обчислює «велику окружність» (haversine) відстань між двома точками на Землі
 function haversineDistance(lat1, lon1, lat2, lon2) {
     const toRad = deg => (deg * Math.PI) / 180; // стрілкова функція, в ній переводимо градуси у радіани, а Math.PI — це константа π (3,14...)
     const R = 6371; // радіус Землі в км, у У формулі Гаверсіна множимо кутову відстань (в радіанах) на цей радіус, щоб отримати фактичну відстань у кілометрах

@@ -14,7 +14,7 @@ function pickServer(maxRetries) {
         const index = Math.floor(Math.random() * servers.length);
         const server = servers[index];
 
-        if(server.isAlive) {
+        if (server.isAlive) {
             return server.name;
         }
         console.log(`Attempt ${attempt}: ${server.name} is down, retrying...`);

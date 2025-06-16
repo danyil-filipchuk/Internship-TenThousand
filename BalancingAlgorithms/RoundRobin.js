@@ -19,3 +19,4 @@ const totalRequests = 10;
 for (let i = 1; i <= totalRequests; i++) {
     console.log(`Request #${i} - ${pickServer()};`)
 }
+

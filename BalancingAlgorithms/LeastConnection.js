@@ -34,8 +34,7 @@ console.log('Стан серверів на початку:', JSON.stringify(ser
 
 // Імітація обробки запитів
 for (let i = 1; i <= totalRequests; i++) {
-    const chosen = pickServer();
-    console.log(`Request #${i} - ${chosen};`);
+    console.log(`Request #${i} - ${pickServer()};`);
     if (i % 3 === 0) {
         releaseConnections();
         console.log('Після releaseConnections:', JSON.stringify(servers));
