@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Parent Window</title>
+  <link rel="stylesheet" href="Parent.css">
+</head>
+
+<body>
+  <div class="main-container">
+    <h1>Parent Window</h1>
+    <input type="text" id="parentInput" placeholder="Enter a message for Iframe">
+    <button id="ButtonSendToIframe">Sent to IFRAME</button>
+    <p id="parentMessage">Waiting for message...</p>
+    <iframe id="childFrame" src="Iframe.html" width="400" height="200" style="border: 1px solid black;"></iframe>
+  </div>
+<script src="Parent.js"></script>
+</body>
+</html>
