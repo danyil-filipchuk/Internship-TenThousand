@@ -3,22 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Real Time Chat</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
-<div id="login">
-    <h1>Real Time Chat</h1>
-    <input type = 'text' id="username" placeholder="Your name"></input>
-    <input type = 'text' id="room" placeholder="Room name..."></input>
-    <button id='joinBtn'>Join Chat</button>
-</div>
+    <div id="login">
+        <h1>REAL TIME CHAT</h1>
+        <input type = 'text' id="username" placeholder="your name"></input>
+        <input type = 'text' id="room" placeholder="room name"></input>
+        <button id='joinBtn'>join chat</button>
+    </div>
 <div id="chatUI" style="display: none;">
-    <div id="chat"></div>
-    <input type="text" id="message" placeholder="Your message..."></input>
-    <button id='sentBtn'>Sent message</button>
+    <div id="chatContainer">
+        <div id="chatSection">
+            <div id="chat"></div>
+            <input type="text" id="message" placeholder="your message...">
+            <button id="sentBtn">sent message</button>
+        </div>
+        <div id="usersSection">
+            <h3>online users</h3>
+            <ul id="users"></ul>
+        </div>
+    </div>
 </div>
-
-
 <script src="index.js"></script>
 </body>
 </html>

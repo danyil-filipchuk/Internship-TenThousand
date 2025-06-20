@@ -8,6 +8,7 @@ const messageInput = document.getElementById('message');
 const sendBtn = document.getElementById('sentBtn');
 const chatUi = document.getElementById('chatUI');
 const chat = document.getElementById('chat');
+const usersList = document.getElementById('users');
 
 let username = '';
 let room = '';
@@ -45,18 +46,23 @@ sendBtn.addEventListener('click', () => {
 socket.onmessage = event => {
     try {
         const data = JSON.parse(event.data);
-        const p = document.createElement('p');
-        p.textContent = `${data.username}: ${data.text}`;
-        chat.appendChild(p);
+
+        if (data.type === 'message') {
+            const p = document.createElement('p');
+            p.textContent = `${data.username}: ${data.text}`;
+            chat.appendChild(p);
+        }
+
+        if (data.type === 'users') {
+            usersList.innerHTML = '';
+            data.users.forEach(user => {
+                const li = document.createElement('li');
+                li.textContent = user;
+                usersList.appendChild(li);
+            })
+        }
+
     } catch (err) {
         console.error('Помилка парсингу повідомлення:', err);
     }
 };
-
-// socket.onmessage = event => {
-//     const data = event.data;
-//     const p = document.createElement('p');
-//     p.textContent = data;
-//     chat.appendChild(p);
-// };
-

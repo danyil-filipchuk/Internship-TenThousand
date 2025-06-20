@@ -1,0 +1,121 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f6f6f6;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#login {
+    text-align: center;
+    max-width: 600px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#chatUI {
+    width: 700px;
+    max-width: 60%;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    margin: 20px 0 40px 0;
+    color: #333;
+    font-family: 'Montserrat', sans-serif;
+}
+
+h3 {
+    text-align: center;
+    color: #333;
+    font-size: 22px;
+}
+
+input, button {
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 19px;
+}
+
+button {
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#chatUI {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#chatContainer {
+    display: flex;
+    gap: 20px;
+}
+
+#chatSection {
+    flex: 3;
+    text-align: center;
+}
+
+#usersSection {
+    flex: 1;
+    border-left: 1px solid #ddd;
+    padding-left: 20px;
+}
+
+#chat {
+    text-align: left;
+    height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #fafafa;
+    border-radius: 6px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+#chat p {
+    margin: 5px 0;
+    font-size: 19px;
+}
+
+#users {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+    font-size: 19px;
+}
+
+#users li {
+    padding: 6px;
+    margin-bottom: 5px;
+    background-color: #eef1f6;
+    border-radius: 6px;
+    color: #333;
+    font-size: 16px;
+    font-family: "Comic Sans MS", sans-serif;
+}
+
