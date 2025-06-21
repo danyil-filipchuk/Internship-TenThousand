@@ -43,6 +43,25 @@ sendBtn.addEventListener('click', () => {
     }
 });
 
+let typingTimeout;
+
+messageInput.addEventListener('input', () => {
+    socket.send(JSON.stringify({
+        type: 'typing',
+        room,
+        username
+    }));
+
+    clearTimeout(typingTimeout);
+    typingTimeout = setTimeout(() => {
+        socket.send(JSON.stringify({
+            type: 'stopTyping',
+            room,
+            username
+        }));
+    }, 2000);
+});
+
 socket.onmessage = event => {
     try {
         const data = JSON.parse(event.data);
@@ -60,6 +79,16 @@ socket.onmessage = event => {
                 li.textContent = user;
                 usersList.appendChild(li);
             })
+        }
+
+        if (data.type === 'typing') {
+            const indicator = document.getElementById('typingIndicator');
+            indicator.textContent = `${data.username} typing...`;
+        }
+
+        if (data.type === 'stopTyping') {
+            const indicator = document.getElementById('typingIndicator');
+            indicator.textContent = '';
         }
 
     } catch (err) {

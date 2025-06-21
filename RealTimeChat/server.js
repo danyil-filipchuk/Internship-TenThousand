@@ -12,6 +12,7 @@ const wss = new WebSocket.Server({server}); // WebSocket-сервер, який 
 // Видача фронтенд-файлів, все що є в папці frontend - треба роздавати як статичні файли
 app.use(express.static(path.join(__dirname, 'frontend' )));
 
+// Функція, яка виводить список онлайн користувачів у кімнаті
 function onlineUsers(room) {
     const users = [];
     wss.clients.forEach(client => {
@@ -61,13 +62,35 @@ wss.on('connection', (ws) => {
         if (data.type === 'message') {
             const msgToSend = JSON.stringify({
                 type: 'message',
-                username: data.username,
+                username: ws.username,
                 text: data.text
             })
 
             wss.clients.forEach((client) => {
                 if (client.readyState === WebSocket.OPEN && client.room === ws.room) {
                     client.send(msgToSend);}
+            });
+        }
+
+        if (data.type === 'typing') {
+            wss.clients.forEach((client) => {
+                if (client.readyState === WebSocket.OPEN && client.room === ws.room && client !== ws) {
+                    client.send(JSON.stringify({
+                        type: 'typing',
+                        username: ws.username,
+                    }));
+                }
+            });
+        }
+
+        if (data.type === 'stopTyping') {
+            wss.clients.forEach((client) => {
+                if (client.readyState === WebSocket.OPEN && client.room === ws.room && client !== ws) {
+                    client.send(JSON.stringify({
+                        type: 'stopTyping',
+                        username: ws.username,
+                    }));
+                }
             });
         }
     });

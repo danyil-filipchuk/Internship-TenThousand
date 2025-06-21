@@ -93,8 +93,17 @@ button:hover {
     background-color: #fafafa;
     border-radius: 6px;
     word-wrap: break-word;
-    overflow-wrap: break-word;
-    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    white-space: normal;
+}
+
+#typingIndicator {
+    padding: 10px;
+    font-style: italic;
+    color: #555;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+    margin-bottom: 10px;
 }
 
 #chat p {
