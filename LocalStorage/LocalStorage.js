@@ -38,9 +38,9 @@ window.addEventListener('DOMContentLoaded', () => {
         buttons.forEach(button => {
             const coinName = button.parentElement.dataset.coin;
             if (favorites.includes(coinName)) {
-                button.textContent = 'Видалити з улюблених';
+                button.textContent = 'Delete from favorites';
             } else {
-                button.textContent = 'Додати в улюблені';
+                button.textContent = 'Add to favorites';
             }
         });
     }

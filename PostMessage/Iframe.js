@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const iframeMessage = document.getElementById('iframeMessage');
     const iframeInput = document.getElementById('iframeInput');
 
-    // Перевірка отримання повідомлення з Iframe
+    // Перевірка отримання повідомлення з Parent
     window.addEventListener('message', (event) => {
         if (event.origin !== location.origin) {
             return;
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         iframeMessage.textContent = `Отримано з Parent: ${event.data}`;
     });
 
-    // Коли натискається кнопка, ми надсилаємо повідомлення у вмонтований Iframe
+    // Коли натискається кнопка, ми надсилаємо повідомлення у батьківське вікно
     document.getElementById('ButtonSendToParent').addEventListener('click', () => {
         const message = iframeInput.value.trim();
 

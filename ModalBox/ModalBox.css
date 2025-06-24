@@ -21,7 +21,7 @@
 }
 
 #openBtn:hover {
-    background-color: #1e40af; /* темніший синій при наведенні */
+    background-color: #1e40af;
     transform: scale(1.05);
 }
 
@@ -48,7 +48,7 @@
 #closeBtn {
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #e11d48; /* червоний */
+    background-color: #e11d48;
     color: white;
     border: none;
     border-radius: 6px;
