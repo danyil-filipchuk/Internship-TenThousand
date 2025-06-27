@@ -65,6 +65,20 @@ class SoundDriver {
         return this.context.decodeAudioData(readerEvent.target.result);
     }
 
+    startCursorLoop() {
+        const loop = () => {
+            if (!this.isRunning || !this.audioBuffer || !this.drawer) {
+                return;
+            }
+
+            const currentTime = this.context.currentTime - this.startedAt;
+            const duration = this.audioBuffer.duration;
+
+            this.drawer.updateCursor(currentTime, duration);
+            this.cursorAnimationFrame = requestAnimationFrame(loop)
+        }
+        this.cursorAnimationFrame = requestAnimationFrame(loop)
+    }
 
     // Якщо буфера ще нема, або вже відтворюється — нічого не робимо
     async play() {
@@ -94,6 +108,8 @@ class SoundDriver {
         this.startedAt = this.context.currentTime - this.pausedAt;
         this.pausedAt = 0;
         this.isRunning = true;
+        this.startCursorLoop();
+
     }
 
     // Зупиняємо звук через context.suspend(),але на відміну від .stop(), це не знищує об’єкти одразу
@@ -113,6 +129,7 @@ class SoundDriver {
         this.gainNode.disconnect();
 
         this.isRunning = false;
+        cancelAnimationFrame(this.cursorAnimationFrame);
     }
 
     // Міняємо гучність, якщо контролер вже створений

@@ -7,6 +7,18 @@ class Drawer {
     constructor(buffer, parent) { // Конструктор приймає аудіо-буфер та DOM-елемент, куди будемо рендерити SVG
         this.buffer = buffer; // Зберігаємо буфер
         this.parent = parent; // Зберігаємо DOM-елемент
+        this.cursor = null;
+    }
+
+    updateCursor(currentTime, duration) {
+        if(!this.cursor) {
+            return;
+        }
+
+        const width = this.parent.clientWidth;
+        const x = (currentTime / duration) * width;
+
+        this.cursor.attr('transform', `translate(${x}, 0)`);
     }
 
     // Метод для створення міток часу (00:00, 00:10, 00:20, ...)
@@ -143,6 +155,18 @@ class Drawer {
             .style('font-size', 11)
             .style('font-weight', 400)
             .call(d3.axisBottom(bandScale.copy()));
+
+        this.cursor = svg.append('g');
+
+        this.cursor.append('line')
+            .attr('y1', 0)
+            .attr('y2', this.parent.clientHeight)
+            .attr('stroke', 'red')
+            .attr('stroke-width', 1);
+
+        this.cursor.append('path')
+            .attr('d', 'M -6 -5 L 0 -15 L 6 -5 Z') // трикутник
+            .attr('fill', 'red');
 
         // Повертаємо готовий SVG-елемент
         return svg;
