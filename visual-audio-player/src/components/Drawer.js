@@ -8,6 +8,7 @@ class Drawer {
         this.buffer = buffer; // Зберігаємо буфер
         this.parent = parent; // Зберігаємо DOM-елемент
         this.cursor = null;
+        this.onSeek = () => {};
     }
 
     updateCursor(currentTime, duration) {
@@ -19,6 +20,37 @@ class Drawer {
         const x = (currentTime / duration) * width;
 
         this.cursor.attr('transform', `translate(${x}, 0)`);
+    }
+
+    enableCursorDragging(duration, onSeek) {
+        let isDragging = false;
+
+        const onMouseDown = (event) => {
+            isDragging = true;
+            event.preventDefault();
+        }
+
+        const onMouseMove = (event) => {
+            if (!isDragging) {
+                return;
+            }
+
+            const rect = this.parent.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const clampedX = Math.max(0, Math.min(x, rect.width));
+
+            const time = (clampedX / rect.width) * duration;
+            this.cursor.attr('transform', `translate(${clampedX}, 0)`);
+            onSeek(time);
+        }
+
+        const onMouseUp = () => {
+            isDragging = false;
+        }
+
+        this.cursor.on('mousedown', onMouseDown);
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
     }
 
     // Метод для створення міток часу (00:00, 00:10, 00:20, ...)
@@ -162,11 +194,12 @@ class Drawer {
             .attr('y1', 0)
             .attr('y2', this.parent.clientHeight)
             .attr('stroke', 'red')
-            .attr('stroke-width', 1);
+            .attr('stroke-width', 3);
 
         this.cursor.append('path')
-            .attr('d', 'M -6 -5 L 0 -15 L 6 -5 Z') // трикутник
-            .attr('fill', 'red');
+            .attr('d', 'M -6 5 L 0 -5 L 6 5 Z')
+            .attr('fill', 'red')
+            .attr('transform', 'translate(0, 5)');
 
         // Повертаємо готовий SVG-елемент
         return svg;
@@ -200,6 +233,9 @@ class Drawer {
         const audioData = this.clearData(); // Обробляємо дані з методу clearData()
         const node = this.generateWaveform(audioData, {}); // Створюємо SVG в методі generateWaveform()
         this.parent.appendChild(node.node()); // Додаємо до DOM
+        this.enableCursorDragging(this.buffer.duration, (time) => {
+            this.onSeek(time);
+        })
     }
 }
 

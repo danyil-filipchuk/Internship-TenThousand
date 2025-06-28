@@ -21,11 +21,24 @@ class SoundDriver {
         this.startedAt = 0;
         this.pausedAt = 0;
         this.isRunning = false;
+        this.wasStopper = false;
     }
 
     static showError(error) {
         alert('SoundParser constructor error. Cannot read audio file as ArrayBuffer');
         return error;
+    }
+
+    seekTo(time) {
+        this.pausedAt = time;
+
+        if (this.isRunning) {
+            this.pause().then(() => {
+                this.play().catch(console.error);
+            })
+        } else {
+            this.drawer.updateCursor(time, this.audioBuffer.duration);
+        }
     }
 
     // Ініціалізує звук — читає файл, декодує, готує графік. Обгорнуто в Promise для асинхронності
@@ -47,6 +60,9 @@ class SoundDriver {
                 this.loadSound(event).then((buffer) => {
                     this.audioBuffer = buffer;
                     this.drawer = new Drawer(buffer, parent);
+                    this.drawer.onSeek = (time) => {
+                        this.seekTo(time);
+                    }
                     resolve();
                 });
             };
@@ -109,7 +125,6 @@ class SoundDriver {
         this.pausedAt = 0;
         this.isRunning = true;
         this.startCursorLoop();
-
     }
 
     // Зупиняємо звук через context.suspend(),але на відміну від .stop(), це не знищує об’єкти одразу
@@ -120,16 +135,27 @@ class SoundDriver {
 
         await this.context.suspend();
 
-        // Якщо пауза повна (reset = true), позиція повертається на початок
-        this.pausedAt = reset ? 0 : this.context.currentTime - this.startedAt;
+        if (reset) {
+            this.pausedAt = 0;
+            this.startedAt = 0;
+            this.wasStopper = true;
+        } else {
+            if (!this.wasStopper) {
+                this.pausedAt = this.context.currentTime - this.startedAt
+            }
+        }
 
         // Зупиняємо джерело повністю, роз’єднуємо вузли, оновлюємо статус
-        this.bufferSource.stop(this.pausedAt);
+        this.bufferSource.stop();
         this.bufferSource.disconnect();
         this.gainNode.disconnect();
 
         this.isRunning = false;
         cancelAnimationFrame(this.cursorAnimationFrame);
+
+        if (this.drawer && this.audioBuffer) {
+            this.drawer.updateCursor(this.pausedAt, this.audioBuffer.duration);
+        }
     }
 
     // Міняємо гучність, якщо контролер вже створений
