@@ -3,7 +3,7 @@ import Player from "../components/Player";
 
 const HomePage = () => {
     return (
-        <div style={{width: '100%', height: '100%'}}>
+        <div>
             <Player/>
         </div>
     );

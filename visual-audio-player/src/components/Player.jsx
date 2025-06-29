@@ -1,5 +1,8 @@
 import React, { useCallback, useState, useRef } from 'react';
 import SoundDriver from './SoundDriver';
+import AudioDropZone from './AudioDropZone/AudioDropZone';
+import WaveContainer from "./WaveContainer/WaveContainer";
+import SoundEditor from './SoundEditor/SoundEditor';
 
 // Оголошуємо компонент
 function Player() {
@@ -60,8 +63,7 @@ function Player() {
     }, []);
 
     // Фабрика функцій для керування кнопками Play, Pause, Stop
-    const togglePlayer = useCallback(
-        (type) => () => {
+    const togglePlayer = useCallback((type) => () => {
             if (type === 'play') {
                 soundController.current?.play();
             } else if (type === 'stop') {
@@ -70,8 +72,7 @@ function Player() {
                 soundController.current?.pause();
             }
         },
-        []
-    );
+        []);
 
     // Функція для зміни гучності
     const onVolumeChange = useCallback(
@@ -82,59 +83,24 @@ function Player() {
     );
 
     return (
-        <div style={{ width: '100%' }}>
+        <div>
             {!soundController.current && (
-                <div style={{
-                        textAlign: 'center',
-                        padding: '2rem',
-                        border: '2px dashed #ccc',
-                        borderRadius: '10px',
-                        cursor: 'pointer',
-                        margin: '5rem'
-                    }}
-                     onDrop={onDrop}
-                     onDragOver={onDragOver}
-                >
-
-                    <p>Drag & drop audio file here</p>
-                    <p>Or</p>
-                    <input
-                        type="file"
-                        name="sound"
-                        onChange={uploadAudio}
-                        accept="audio/*"
-                    />
-                </div>
+                <AudioDropZone
+                onDrop={onDrop}
+                onDragOver={onDragOver}
+                uploadAudio={uploadAudio}
+                />
             )}
+
             {loading && 'Loading...'}
 
-            <div style={{ width: '100%', height: '392px' }} id="waveContainer" />
+            <WaveContainer/>
 
             {!loading && soundController.current && (
-                <div id="soundEditor">
-                    <div id="controllPanel">
-                        <input
-                            type="range"
-                            onChange={onVolumeChange}
-                            defaultValue={1}
-                            min={-1}
-                            max={1}
-                            step={0.01}
-                        />
-
-                        <button type="button" onClick={togglePlayer('play')}>
-                            Play
-                        </button>
-
-                        <button type="button" onClick={togglePlayer('pause')}>
-                            Pause
-                        </button>
-
-                        <button type="button" onClick={togglePlayer('stop')}>
-                            Stop
-                        </button>
-                    </div>
-                </div>
+                <SoundEditor
+                    onVolumeChange={onVolumeChange}
+                    togglePlayer={togglePlayer}
+                />
             )}
         </div>
     );
