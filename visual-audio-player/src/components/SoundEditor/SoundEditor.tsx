@@ -1,7 +1,12 @@
-import React from 'react';
+import React, {FC, ChangeEvent} from 'react';
 import './SoundEditor.css';
 
-const SoundEditor = ({ onVolumeChange, togglePlayer}) => {
+interface SoundEditorProps {
+    onVolumeChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    togglePlayer: (type: string) => () => void;
+}
+
+const SoundEditor: FC<SoundEditorProps> = ({ onVolumeChange, togglePlayer}) => {
     return (
         <div className="editor-container">
             <div className="volume-container">

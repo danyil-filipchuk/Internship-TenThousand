@@ -8,12 +8,12 @@ import SoundEditor from './SoundEditor/SoundEditor';
 function Player() {
 
     // Створюємо реф, у якому будемо зберігати екземпляр SoundDriver. Це дозволяє зберігати об'єкт між рендерами без повторного ініціювання
-    const soundController = useRef(null);
+    const soundController = useRef<SoundDriver | null>(null);
 
     // Стан loading — використовується, щоб показати "Loading..." під час обробки аудіо
     const [loading, setLoading] = useState(false);
 
-    const handleFile = useCallback(async (event) => {
+    const handleFile = useCallback(async (event: File) => {
         if (!event || !event.type.includes('audio')) {
             alert('Wrong audio file');
             return;
@@ -35,52 +35,50 @@ function Player() {
         }
     }, []);
 
-    const uploadAudio = useCallback((event) => {
-        const { files } = event.target;
+    const uploadAudio = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = event.target.files;
+        console.log(files);
 
         // Якщо файл не вибрано, то завершуємо
-        if (!files.length) {
+        if (!files || files.length === 0) {
             return;
         }
 
         handleFile(files[0]).catch(console.error);
     }, [handleFile]);
 
-    const onDrop = useCallback((event) => {
+    const onDrop = useCallback((event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
-        const { files } = event.dataTransfer;
+        const files = event.dataTransfer.files;
 
         // Якщо файл не вибрано, то завершуємо
-        if (!files.length) {
+        if (!files || files.length === 0) {
             return;
         }
 
         handleFile(files[0]).catch(console.error);
     }, [handleFile]);
 
-    const onDragOver = useCallback((event) => {
+    const onDragOver = useCallback((event: React.DragEvent<HTMLDivElement>)=> {
         event.preventDefault();
     }, []);
 
     // Фабрика функцій для керування кнопками Play, Pause, Stop
-    const togglePlayer = useCallback((type) => () => {
+    const togglePlayer = useCallback((type: string) => () => {
             if (type === 'play') {
-                soundController.current?.play();
+                soundController.current?.play().catch(console.error);
             } else if (type === 'stop') {
-                soundController.current?.pause(true);
+                soundController.current?.pause(true).catch(console.error);
             } else {
-                soundController.current?.pause();
+                soundController.current?.pause().catch(console.error);
             }
-        },
-        []);
+        }, []);
 
     // Функція для зміни гучності
     const onVolumeChange = useCallback(
-        (event) => {
-            soundController.current?.changeVolume(Number(event.target.value));
-        },
-        []
-    );
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+                soundController.current?.changeVolume(Number(event.target.value));
+        }, []);
 
     return (
         <div>

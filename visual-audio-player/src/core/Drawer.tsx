@@ -1,17 +1,28 @@
 // Імпортуємо бібліотеку для побудови графіків
 import * as d3 from 'd3';
 
+interface WaveformOptions {
+    margin?: { top: number; bottom: number; left: number; right: number };
+    height?: number;
+    width?: number;
+    padding?: number;
+}
+
 // Оголошення класу Drawer
 class Drawer {
 
-    constructor(buffer, parent) { // Конструктор приймає аудіо-буфер та DOM-елемент, куди будемо рендерити SVG
-        this.buffer = buffer; // Зберігаємо буфер
-        this.parent = parent; // Зберігаємо DOM-елемент
-        this.cursor = null;
-        this.onSeek = () => {};
+    private buffer: AudioBuffer;
+    private parent: HTMLElement;
+    private cursor: d3.Selection<any, any, any, any> | null = null;
+    public onSeek: (time: number) => void = () => {};
+
+
+    constructor(buffer: AudioBuffer, parent: HTMLElement) { // Конструктор приймає аудіо-буфер та DOM-елемент, куди будемо рендерити SVG
+        this.buffer = buffer;
+        this.parent = parent;
     }
 
-    updateCursor(currentTime, duration) {
+    updateCursor(currentTime: number, duration: number) {
         if(!this.cursor) {
             return;
         }
@@ -22,15 +33,15 @@ class Drawer {
         this.cursor.attr('transform', `translate(${x}, 0)`);
     }
 
-    enableCursorDragging(duration, onSeek) {
+    enableCursorDragging(duration: number, onSeek: (time: number) => void) {
         let isDragging = false;
 
-        const onMouseDown = (event) => {
+        const onMouseDown = (event: MouseEvent) => {
             isDragging = true;
             event.preventDefault();
         }
 
-        const onMouseMove = (event) => {
+        const onMouseMove = (event: MouseEvent) => {
             if (!isDragging) {
                 return;
             }
@@ -40,7 +51,7 @@ class Drawer {
             const clampedX = Math.max(0, Math.min(x, rect.width));
 
             const time = (clampedX / rect.width) * duration;
-            this.cursor.attr('transform', `translate(${clampedX}, 0)`);
+            this.cursor!.attr('transform', `translate(${clampedX}, 0)`);
             onSeek(time);
         }
 
@@ -48,13 +59,13 @@ class Drawer {
             isDragging = false;
         }
 
-        this.cursor.on('mousedown', onMouseDown);
+        this.cursor!.on('mousedown', onMouseDown);
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
     }
 
     // Метод для створення міток часу (00:00, 00:10, 00:20, ...)
-    getTimeDomain() {
+    getTimeDomain(): string[] {
         const step = 10; // Крок у секундах (10 секунд)
         const steps = Math.ceil(this.buffer.duration / step); // Загальна кількість кроків (залежить від тривалості аудіо)
 
@@ -79,7 +90,7 @@ class Drawer {
     }
 
     // Основний метод, який створює хвильову форму
-    generateWaveform(audioData, options = {}) {
+    generateWaveform(audioData: number[], options: WaveformOptions = {}) {
 
         // Деструктуризуємо налаштування з об’єкта options або задаємо значення за замовчуванням
         const {
@@ -206,7 +217,7 @@ class Drawer {
     }
 
     // Обробка аудіо-даних: фільтрація і нормалізація
-    clearData() {
+    clearData(): number[] {
         const rawData = this.buffer.getChannelData(0); // Отримуємо сирі аудіодані, це великий масив чисел в діапазоні -1 до 1 — амплітуди сигналу в кожен мілісекундний момент
         const samples = this.buffer.sampleRate; // Це частота дискретизації — скільки значень (семплів) у секунду. Наприклад, 44100
         const blockSize = Math.floor(rawData.length / samples); // Ділимо весь масив на маленькі блоки
@@ -229,13 +240,11 @@ class Drawer {
     }
 
     // Запуск побудови графіка
-    init() {
+    init(): void {
         const audioData = this.clearData(); // Обробляємо дані з методу clearData()
-        const node = this.generateWaveform(audioData, {}); // Створюємо SVG в методі generateWaveform()
-        this.parent.appendChild(node.node()); // Додаємо до DOM
-        this.enableCursorDragging(this.buffer.duration, (time) => {
-            this.onSeek(time);
-        })
+        const svg = this.generateWaveform(audioData); // Створюємо SVG в методі generateWaveform()
+        this.parent.appendChild(svg.node()!); // Додаємо до DOM
+        this.enableCursorDragging(this.buffer.duration, this.onSeek);
     }
 }
 

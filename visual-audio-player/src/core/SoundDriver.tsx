@@ -4,32 +4,33 @@ import Drawer from './Drawer';
 // Завантаження аудіофайлу, програвання/паузу, управління гучністю, створення графіка
 class SoundDriver {
 
+    private readonly audioFile;
+    private context: AudioContext;
+    private drawer?: Drawer;
+    private gainNode?: GainNode = undefined;
+    private audioBuffer?: AudioBuffer = undefined;
+    private bufferSource?: AudioBufferSourceNode = undefined;
+    private startedAt = 0;
+    private pausedAt = 0;
+    private isRunning = false;
+    private wasStopper = false;
+    private cursorAnimationFrame?: number;
+
     // Метод, який викликається при створенні нового екземпляра класу
-    constructor(audioFile) {
+    constructor(audioFile: Blob) {
         this.audioFile = audioFile; // Зберігаємо переданий файл для подальшої обробки
 
         // Створюємо аудіо-контекст — головний інструмент для роботи зі звуком у Web Audio API.
         // (Підтримка старих браузерів через webkitAudioContext)
-        this.context = new (window.AudioContext || window.webkitAudioContext)();
-
-        // Ініціалізуємо всі ключові об’єкти, які створюються пізніше
-        this.drawer = undefined;
-        this.gainNode = undefined;
-        this.audioBuffer = undefined;
-        this.bufferSource = undefined;
-
-        this.startedAt = 0;
-        this.pausedAt = 0;
-        this.isRunning = false;
-        this.wasStopper = false;
+        this.context = new AudioContext();
     }
 
-    static showError(error) {
+    static showError(error: string) {
         alert('SoundParser constructor error. Cannot read audio file as ArrayBuffer');
         return error;
     }
 
-    seekTo(time) {
+    seekTo(time: number) {
         this.pausedAt = time;
 
         if (this.isRunning) {
@@ -37,12 +38,12 @@ class SoundDriver {
                 this.play().catch(console.error);
             })
         } else {
-            this.drawer.updateCursor(time, this.audioBuffer.duration);
+            this.drawer!.updateCursor(time, this.audioBuffer!.duration);
         }
     }
 
     // Ініціалізує звук — читає файл, декодує, готує графік. Обгорнуто в Promise для асинхронності
-    init(parent) {
+    public init(parent: HTMLElement | null) {
         return new Promise((resolve, reject) => {
             // Якщо батьківський DOM-елемент не переданий — зупиняємо ініціалізацію
             if (!parent) {
@@ -56,29 +57,26 @@ class SoundDriver {
 
             // Коли читання завершено, то декодуємо аудіо через loadSound(), далі зберігаємо буфер у this.audioBuffer,
             // створюємо Drawer для графіка та викликаємо resolve()
-            reader.onload = (event) => {
+            reader.onload = (event: ProgressEvent<FileReader>) => {
                 this.loadSound(event).then((buffer) => {
                     this.audioBuffer = buffer;
                     this.drawer = new Drawer(buffer, parent);
-                    this.drawer.onSeek = (time) => {
-                        this.seekTo(time);
-                    }
-                    resolve();
+                    this.drawer.onSeek = (time: number) => this.seekTo(time);
+                    resolve(undefined);
                 });
             };
-
             // Якщо читання файлу дало помилку — передаємо її у reject() промісу
             reader.onerror = reject;
         });
     }
 
     // Метод перевіряє, чи є дані, декодує аудіо з ArrayBuffer через Web Audio API
-    loadSound(readerEvent) {
+    private loadSound(readerEvent: ProgressEvent<FileReader>) {
         if (!readerEvent?.target?.result) {
             throw new Error('Cannot read file');
         }
 
-        return this.context.decodeAudioData(readerEvent.target.result);
+        return this.context.decodeAudioData(readerEvent.target.result as ArrayBuffer);
     }
 
     startCursorLoop() {
@@ -97,7 +95,7 @@ class SoundDriver {
     }
 
     // Якщо буфера ще нема, або вже відтворюється — нічого не робимо
-    async play() {
+    public async play() {
         if (!this.audioBuffer) {
             throw new Error('Audio buffer not found. Call loadSound() first.');
         }
@@ -129,7 +127,7 @@ class SoundDriver {
     }
 
     // Зупиняємо звук через context.suspend(),але на відміну від .stop(), це не знищує об’єкти одразу
-    async pause(reset) {
+    public async pause(reset?: boolean) {
         if (!this.bufferSource || !this.gainNode) {
             throw new Error('Pause error: bufferSource not found. Did you call play()?');
         }
@@ -152,7 +150,7 @@ class SoundDriver {
         this.gainNode.disconnect();
 
         this.isRunning = false;
-        cancelAnimationFrame(this.cursorAnimationFrame);
+        cancelAnimationFrame(this.cursorAnimationFrame!);
 
         if (this.drawer && this.audioBuffer) {
             this.drawer.updateCursor(this.pausedAt, this.audioBuffer.duration);
@@ -160,13 +158,13 @@ class SoundDriver {
     }
 
     // Міняємо гучність, якщо контролер вже створений
-    changeVolume(volume) {
+    public changeVolume(volume: number) {
         if (!this.gainNode) return;
         this.gainNode.gain.value = volume;
     }
 
     // Запускаємо метод init() у класі Drawer, щоб відрендерити графік
-    drawChart() {
+    public drawChart() {
         if (this.drawer?.init) {
             this.drawer.init();
         }
