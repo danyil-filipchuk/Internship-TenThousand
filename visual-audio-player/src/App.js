@@ -1,9 +1,9 @@
-import HomePage from "./pages/HomePage";
+import Player from "./components/Player";
 
 function App() {
   return (
       <div>
-        <HomePage/>
+        <Player/>
       </div>
   );
 }

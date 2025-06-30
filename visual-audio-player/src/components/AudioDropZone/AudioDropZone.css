@@ -1,9 +1,9 @@
-.main-container {
-    background: linear-gradient(to bottom right, #1f1f1f, #2a2a2a);
+.drop-zone-wrapper {
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
 .drop-zone {

@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useRef } from 'react';
-import SoundDriver from './SoundDriver';
+import SoundDriver from '../core/SoundDriver'
 import AudioDropZone from './AudioDropZone/AudioDropZone';
 import WaveContainer from "./WaveContainer/WaveContainer";
 import SoundEditor from './SoundEditor/SoundEditor';
@@ -25,7 +25,7 @@ function Player() {
         // який у свою чергу створює екземпляр класу Drawer
         const soundInstance = new SoundDriver(event);
         try {
-            await soundInstance.init(document.getElementById('waveContainer'));
+            await soundInstance.init(document.getElementById('wave-container'));
             soundController.current = soundInstance; // Зберігаємо інстанс у useRef, щоб зберігався між рендерами
         } catch (err) {
             console.log(err);
@@ -97,10 +97,10 @@ function Player() {
             <WaveContainer/>
 
             {!loading && soundController.current && (
-                <SoundEditor
-                    onVolumeChange={onVolumeChange}
-                    togglePlayer={togglePlayer}
-                />
+                    <SoundEditor
+                        onVolumeChange={onVolumeChange}
+                        togglePlayer={togglePlayer}
+                    />
             )}
         </div>
     );

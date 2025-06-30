@@ -1,0 +1,44 @@
+.editor-container {
+    width: 15%;
+    margin: 2rem auto;
+    background-color: #2a2a2a;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+}
+
+.volume-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.volume-slider {
+    width: 100%;
+    accent-color: #9c27b0;
+    cursor: pointer;
+}
+
+.toolbar {
+    display: flex;
+    gap: 1rem;
+}
+
+.toolbar button {
+    padding: 0.5rem 1.2rem;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.toolbar button:hover {
+    background-color: #9c27b0;
+}

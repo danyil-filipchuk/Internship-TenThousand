@@ -1,7 +1,8 @@
 import React from 'react';
+import './WaveContainer.css';
 
 const WaveContainer = () => {
-    return <div style={{ width: '100%', height: '392px' }} id="waveContainer" />
+    return <div id='wave-container'/>
 };
 
 export default WaveContainer;

@@ -124,6 +124,7 @@ class SoundDriver {
         this.startedAt = this.context.currentTime - this.pausedAt;
         this.pausedAt = 0;
         this.isRunning = true;
+        this.wasStopper = false;
         this.startCursorLoop();
     }
 
