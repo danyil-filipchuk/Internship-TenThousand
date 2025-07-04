@@ -13,13 +13,14 @@ function Player() {
     // Стан loading — використовується, щоб показати "Loading..." під час обробки аудіо
     const [loading, setLoading] = useState(false);
 
+    // Обробник вибору або drop аудіофайлу
     const handleFile = useCallback(async (event: File) => {
         if (!event || !event.type.includes('audio')) {
             alert('Wrong audio file');
             return;
         }
 
-        setLoading(true);
+        setLoading(true); // Вмикаємо лоадер
 
         // Створюємо екземпляр класу SoundDriver та викликаємо метод init в класі SoundDriver,
         // який у свою чергу створює екземпляр класу Drawer
@@ -35,9 +36,9 @@ function Player() {
         }
     }, []);
 
+    // Обробка вибору файлу через input[type="file"]
     const uploadAudio = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
-        console.log(files);
 
         // Якщо файл не вибрано, то завершуємо
         if (!files || files.length === 0) {
@@ -47,6 +48,7 @@ function Player() {
         handleFile(files[0]).catch(console.error);
     }, [handleFile]);
 
+    // Обробник drop події на дроп-зоні
     const onDrop = useCallback((event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
         const files = event.dataTransfer.files;
@@ -59,6 +61,7 @@ function Player() {
         handleFile(files[0]).catch(console.error);
     }, [handleFile]);
 
+    // Дозволяємо зону drop реагувати на dragOver
     const onDragOver = useCallback((event: React.DragEvent<HTMLDivElement>)=> {
         event.preventDefault();
     }, []);
@@ -81,7 +84,7 @@ function Player() {
         }, []);
 
     return (
-        <div>
+        <>
             {!soundController.current && (
                 <AudioDropZone
                 onDrop={onDrop}
@@ -100,7 +103,7 @@ function Player() {
                         togglePlayer={togglePlayer}
                     />
             )}
-        </div>
+        </>
     );
 }
 

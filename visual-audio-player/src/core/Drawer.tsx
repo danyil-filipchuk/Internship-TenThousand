@@ -14,14 +14,14 @@ class Drawer {
     private buffer: AudioBuffer;
     private parent: HTMLElement;
     private cursor: d3.Selection<any, any, any, any> | null = null;
-    public onSeek: (time: number) => void = () => {};
+    public onSeek: (time: number) => void = () => {}; // колбек, що викликається при перетягуванні курсора
 
-
-    constructor(buffer: AudioBuffer, parent: HTMLElement) { // Конструктор приймає аудіо-буфер та DOM-елемент, куди будемо рендерити SVG
-        this.buffer = buffer;
-        this.parent = parent;
+    constructor(buffer: AudioBuffer, parent: HTMLElement) {
+        this.buffer = buffer; // декодований AudioBuffer
+        this.parent = parent; // DOM-елемент, куди будемо вмонтовувати SVG
     }
 
+    // Оновлює позицію курсора за поточним часом
     updateCursor(currentTime: number, duration: number) {
         if(!this.cursor) {
             return;
@@ -33,6 +33,7 @@ class Drawer {
         this.cursor.attr('transform', `translate(${x}, 0)`);
     }
 
+    // Дозволяє користувачеві перетягувати курсор для зміни позиції відтворення
     enableCursorDragging(duration: number, onSeek: (time: number) => void) {
         let isDragging = false;
 
@@ -52,7 +53,7 @@ class Drawer {
 
             const time = (clampedX / rect.width) * duration;
             this.cursor!.attr('transform', `translate(${clampedX}, 0)`);
-            onSeek(time);
+            onSeek(time); // повідомляємо про нову позицію
         }
 
         const onMouseUp = () => {

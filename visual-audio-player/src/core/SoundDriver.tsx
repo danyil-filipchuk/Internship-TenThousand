@@ -21,7 +21,6 @@ class SoundDriver {
         this.audioFile = audioFile; // Зберігаємо переданий файл для подальшої обробки
 
         // Створюємо аудіо-контекст — головний інструмент для роботи зі звуком у Web Audio API.
-        // (Підтримка старих браузерів через webkitAudioContext)
         this.context = new AudioContext();
     }
 
@@ -30,6 +29,7 @@ class SoundDriver {
         return error;
     }
 
+    // Перехід до вказаного часу в аудіо
     seekTo(time: number) {
         this.pausedAt = time;
 
@@ -79,6 +79,8 @@ class SoundDriver {
         return this.context.decodeAudioData(readerEvent.target.result as ArrayBuffer);
     }
 
+
+    // Запускає цикл оновлення позиції курсора під час відтворення
     startCursorLoop() {
         const loop = () => {
             if (!this.isRunning || !this.audioBuffer || !this.drawer) {
