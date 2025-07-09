@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useRef } from 'react';
+import React, {useCallback, useState, useRef, Fragment} from 'react';
 import SoundDriver from '../core/SoundDriver'
 import AudioDropZone from './AudioDropZone/AudioDropZone';
 import WaveContainer from "./WaveContainer/WaveContainer";
@@ -95,7 +95,7 @@ function Player() {
 
             {loading && 'Loading...'}
 
-            <WaveContainer/>
+            <><WaveContainer/></>
 
             {!loading && soundController.current && (
                     <SoundEditor
