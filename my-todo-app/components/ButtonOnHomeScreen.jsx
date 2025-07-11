@@ -26,14 +26,14 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: "#4F8EF7",
-        paddingVertical: 16,
+        paddingVertical: 10,
         borderRadius: 16,
         alignItems: 'center',
     },
     buttonText: {
         color: '#fff',
-        fontSize: 18,
-        fontWeight: 'bold',
+        fontSize: 25,
         letterSpacing: 1,
+        fontFamily: 'Montserrat-Regular'
     },
 });

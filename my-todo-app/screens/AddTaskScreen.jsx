@@ -1,5 +1,6 @@
-import {useState} from "react";
-import {View, Text, Button, TextInput} from "react-native";
+import { useState } from "react";
+import { View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { showMessage } from "react-native-flash-message";
 
 export function AddTaskScreen({navigation, addTask}) {
     const [text, setText] = useState('');
@@ -7,7 +8,18 @@ export function AddTaskScreen({navigation, addTask}) {
     const handleSave = () => {
         if (text.trim()) {
             addTask(text.trim());
+            showMessage({
+                message: 'task added',
+                type: 'success',
+                }
+            )
             navigation.goBack();
+        }
+        else {
+            showMessage({
+                message: 'please enter a task',
+                type: 'warning',
+            })
         }
     }
 
@@ -26,7 +38,11 @@ export function AddTaskScreen({navigation, addTask}) {
                     width: 350,
                 }}
             />
-            <Button title="save task" onPress={handleSave}/>
+
+            <TouchableOpacity onPress={handleSave}>
+                <Text>Save task</Text>
+            </TouchableOpacity>
+
         </View>
     );
 }
