@@ -1,0 +1,39 @@
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+
+export function ButtonOnHomeScreen({ onPress }) {
+    return (
+        <View style={styles.buttonContainer}>
+            <TouchableOpacity onPress={onPress} style={styles.button} >
+                <Text style={styles.buttonText}>add new task</Text>
+            </TouchableOpacity>
+        </View>
+    )
+}
+
+const styles = StyleSheet.create({
+    buttonContainer: {
+        position: 'absolute',
+        left: 20,
+        right: 20,
+        bottom: 20,
+        // Тінь для iOS
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+        // Тінь для Android
+        elevation: 4,
+    },
+    button: {
+        backgroundColor: "#4F8EF7",
+        paddingVertical: 16,
+        borderRadius: 16,
+        alignItems: 'center',
+    },
+    buttonText: {
+        color: '#fff',
+        fontSize: 18,
+        fontWeight: 'bold',
+        letterSpacing: 1,
+    },
+});

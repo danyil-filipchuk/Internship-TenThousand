@@ -6,8 +6,8 @@ import MaskedView from "@react-native-masked-view/masked-view";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/HomeScreen';
-import {AddTaskScreen} from './screens/AddTaskScreen';
-import {useState} from "react";
+import { AddTaskScreen } from './screens/AddTaskScreen';
+import { useState } from "react";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,7 +15,19 @@ export default function App() {
     const [tasks, setTasks, ] = useState([]);
 
     const addTask = (task) => {
-        setTasks(prev => [...prev, task]);
+        setTasks(prev => [
+            ...prev,
+            {id: Date.now().toString(), text: task, completed: false}
+        ]);
+    }
+
+    const removeTask = (id) => {
+        setTasks(prev => prev.filter(task => task.id !== id));
+    }
+
+    const completeTask = (id) => {
+        setTasks(prev => prev.map(task =>
+            task.id !== id ? {...task, completed: !task.completed} : task))
     }
 
   return (
@@ -25,7 +37,12 @@ export default function App() {
                   name='Home'
                   options={{title: 'my tasks'}}
               >
-                  {props => <HomeScreen {...props} tasks={tasks} />}
+                  {props => <HomeScreen
+                      {...props}
+                      tasks={tasks}
+                      removeTask={removeTask}
+                      completeTask={completeTask}
+                  />}
               </Stack.Screen>
               <Stack.Screen
                   name='AddTask'
