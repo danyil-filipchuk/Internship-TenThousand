@@ -1,7 +1,10 @@
 import Animated, { FadeInDown, FadeOutUp } from 'react-native-reanimated';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import DoneIcon from "../assets/images/DoneIcon.svg";
-import DeleteIcon from "../assets/images/DeleteIcon.svg";
+// import { showMessage } from "react-native-flash-message";
+import * as Clipboard from 'expo-clipboard';
+import IconDone from "../assets/images/IconDone.svg";
+import IconDelete from "../assets/images/IconDelete.svg";
+import IconCopy from "../assets/images/IconCopy.svg";
 
 export function TaskList({tasks, completeTask, removeTask}) {
     return (
@@ -19,12 +22,15 @@ export function TaskList({tasks, completeTask, removeTask}) {
                         <Text style={ item.completed ? styles.completeText : styles.text }>
                             {item.text}
                         </Text>
+                        <TouchableOpacity onPress={() => Clipboard.setStringAsync(item.text)}>
+                            <IconCopy/>
+                        </TouchableOpacity>
                     </View>
                     <TouchableOpacity onPress={() => completeTask(item.id)}>
-                        <DoneIcon width={30} height={30} style={{ marginLeft:5 }}/>
+                        <IconDone width={30} height={30} style={{ marginLeft:5 }}/>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => removeTask(item.id)}>
-                        <DeleteIcon width={30} height={30} style={{ marginLeft:5 }}/>
+                        <IconDelete width={30} height={30} style={{ marginLeft:5 }}/>
                     </TouchableOpacity>
                 </Animated.View>
             }
@@ -48,12 +54,10 @@ const styles = StyleSheet.create({
         borderColor: '#E0E0E0',
         padding: 12,
         marginBottom: 10,
-        // тінь для iOS
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.07,
         shadowRadius: 2,
-        // тінь для Android
         elevation: 2,
     },
     index: {

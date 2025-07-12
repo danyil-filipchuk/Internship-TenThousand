@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { SafeAreaView, View, StyleSheet } from "react-native";
 import { showMessage } from "react-native-flash-message";
+import { ButtonSaveTask } from "../components/ButtonSaveTask";
+import {TaskInput} from "../components/TaskInput";
 
 export function AddTaskScreen({navigation, addTask}) {
     const [text, setText] = useState('');
@@ -24,25 +26,36 @@ export function AddTaskScreen({navigation, addTask}) {
     }
 
     return (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            <TextInput
-                placeholder='enter task...'
-                value={text}
-                onChangeText={setText}
-                style={{
-                    fontSize: 20,
-                    borderWidth: 1,
-                    borderColor: "#bbb",
-                    borderRadius: 8,
-                    padding: 10,
-                    width: 350,
-                }}
-            />
-
-            <TouchableOpacity onPress={handleSave}>
-                <Text>Save task</Text>
-            </TouchableOpacity>
-
-        </View>
+        <SafeAreaView style={ styles.container }>
+            <View style={ styles.card }>
+                <TaskInput
+                    value={text}
+                    onChangeText={setText}
+                    onSubmitEditing={handleSave}
+                />
+                <ButtonSaveTask onPress={handleSave}/>
+            </View>
+        </SafeAreaView>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fafbff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    card: {
+        backgroundColor: "#fff",
+        padding: 24,
+        borderRadius: 16,
+        width: '90%',
+        alignItems: 'center',
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.06,
+        shadowRadius: 8,
+        elevation: 3,
+    }
+})

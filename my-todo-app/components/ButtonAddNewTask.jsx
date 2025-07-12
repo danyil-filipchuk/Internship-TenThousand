@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-export function ButtonOnHomeScreen({ onPress }) {
+export function ButtonAddNewTask({ onPress }) {
     return (
         <View style={styles.buttonContainer}>
             <TouchableOpacity onPress={onPress} style={styles.button} >
