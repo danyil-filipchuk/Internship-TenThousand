@@ -27,10 +27,12 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         borderRadius: 16,
         alignItems: 'center',
+        width: '100%',
     },
     buttonText: {
         color: '#fff',
         fontSize: 25,
+        letterSpacing: 1,
         fontFamily: 'Montserrat-Regular'
     },
 });

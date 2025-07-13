@@ -1,4 +1,5 @@
 import 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
 import { useFonts } from 'expo-font';
 import fonts from "./assets/fonts/fonts";
@@ -10,7 +11,6 @@ import { useState, useEffect } from "react";
 import { loadTasksFromStorage, saveTasksToStorage } from './utils/Storage';
 import FlashMessage from "react-native-flash-message";
 import { showMessage } from "react-native-flash-message";
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,7 +32,12 @@ export default function App() {
     const addTask = (task) => {
         setTasks(prev => [
             ...prev,
-            {id: Date.now().toString(), text: task, completed: false}
+            {
+                id: Date.now().toString(),
+                text: task.text,
+                completed: false,
+                deadline: task.deadline,
+            }
         ]);
     }
 
