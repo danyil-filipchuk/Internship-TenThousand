@@ -16,12 +16,10 @@ const styles = StyleSheet.create({
         left: 20,
         right: 20,
         bottom: 20,
-        // Тінь для iOS
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.23,
         shadowRadius: 2.62,
-        // Тінь для Android
         elevation: 4,
     },
     button: {
@@ -33,7 +31,6 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#fff',
         fontSize: 25,
-        letterSpacing: 1,
         fontFamily: 'Montserrat-Regular'
     },
 });

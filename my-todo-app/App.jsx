@@ -1,9 +1,7 @@
+import 'react-native-gesture-handler';
 import 'react-native-reanimated';
-import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import fonts from "./assets/fonts/fonts";
-import { LinearGradient } from 'expo-linear-gradient';
-import MaskedView from "@react-native-masked-view/masked-view";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { HomeScreen } from './screens/HomeScreen';
@@ -12,6 +10,7 @@ import { useState, useEffect } from "react";
 import { loadTasksFromStorage, saveTasksToStorage } from './utils/Storage';
 import FlashMessage from "react-native-flash-message";
 import { showMessage } from "react-native-flash-message";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,7 +36,7 @@ export default function App() {
         ]);
     }
 
-    const removeTask = (id) => {
+    const deleteTask = (id) => {
         setTasks(prev => prev.filter(task => task.id !== id));
 
         showMessage({
@@ -65,7 +64,7 @@ export default function App() {
     }
 
   return (
-      <>
+      <GestureHandlerRootView style={{flex: 1}}>
           <NavigationContainer>
               <Stack.Navigator initialRouteName="Home">
                   <Stack.Screen
@@ -75,7 +74,7 @@ export default function App() {
                       {props => <HomeScreen
                           {...props}
                           tasks={tasks}
-                          removeTask={removeTask}
+                          deleteTask={deleteTask}
                           completeTask={completeTask}
                       />}
                   </Stack.Screen>
@@ -88,6 +87,6 @@ export default function App() {
               </Stack.Navigator>
           </NavigationContainer>
           <FlashMessage position='center' />
-      </>
+      </GestureHandlerRootView>
   );
 }

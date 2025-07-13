@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { SafeAreaView, View, StyleSheet } from "react-native";
 import { showMessage } from "react-native-flash-message";
-import { ButtonSaveTask } from "../components/ButtonSaveTask";
-import {TaskInput} from "../components/TaskInput";
+import { ButtonSaveTask } from "../components/AddTaskScreen/ButtonSaveTask";
+import { TaskInput } from "../components/AddTaskScreen/TaskInput";
 
 export function AddTaskScreen({navigation, addTask}) {
     const [text, setText] = useState('');

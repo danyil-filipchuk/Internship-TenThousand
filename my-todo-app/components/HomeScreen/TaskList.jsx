@@ -1,37 +1,37 @@
 import Animated, { FadeInDown, FadeOutUp } from 'react-native-reanimated';
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-// import { showMessage } from "react-native-flash-message";
-import * as Clipboard from 'expo-clipboard';
-import IconDone from "../assets/images/IconDone.svg";
-import IconDelete from "../assets/images/IconDelete.svg";
-import IconCopy from "../assets/images/IconCopy.svg";
+import { FlatList, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { TaskActionsIcons } from "./TaskActionsIcons";
+import { CopyIconButton } from "./CopyIconButton";
+import MoreIcon from "../../assets/images/MoreIcon.svg";
 
-export function TaskList({tasks, completeTask, removeTask}) {
+export function TaskList({tasks, completeTask, deleteTask, openSheet }) {
     return (
         <FlatList
             data={tasks}
             keyExtractor={( item, index ) => index.toString()}
             renderItem={({ item, index }) =>
                 <Animated.View
-                    style={styles.card}
                     entering={FadeInDown.duration(600)}
                     exiting={FadeOutUp.duration(600)}
                 >
-                    <View style={ styles.indexWithText }>
-                        <Text style={ styles.index }>{index+1}.</Text>
-                        <Text style={ item.completed ? styles.completeText : styles.text }>
-                            {item.text}
-                        </Text>
-                        <TouchableOpacity onPress={() => Clipboard.setStringAsync(item.text)}>
-                            <IconCopy/>
+                    <View style={ styles.cardRow }>
+                        <View style={ styles.card }>
+                            <View style={ styles.indexWithText }>
+                                <Text style={ styles.index }>{index+1}.</Text>
+                                <Text style={ item.completed ? styles.completeText : styles.text }>
+                                    {item.text}
+                                    <CopyIconButton text={item.text}/>
+                                </Text>
+                            </View>
+                            <TaskActionsIcons
+                                onComplete={() => completeTask(item.id)}
+                                onDelete={() => deleteTask(item.id)}
+                            />
+                        </View>
+                        <TouchableOpacity onPress={() => openSheet(item)}>
+                            <MoreIcon/>
                         </TouchableOpacity>
                     </View>
-                    <TouchableOpacity onPress={() => completeTask(item.id)}>
-                        <IconDone width={30} height={30} style={{ marginLeft:5 }}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => removeTask(item.id)}>
-                        <IconDelete width={30} height={30} style={{ marginLeft:5 }}/>
-                    </TouchableOpacity>
                 </Animated.View>
             }
             ListEmptyComponent={
@@ -44,7 +44,13 @@ export function TaskList({tasks, completeTask, removeTask}) {
 }
 
 const styles = StyleSheet.create({
+    cardRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
     card: {
+        flex: 1,
         flexDirection: 'row',
         alignItems: "center",
         justifyContent: 'space-between',
@@ -53,7 +59,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#E0E0E0',
         padding: 12,
-        marginBottom: 10,
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.07,
