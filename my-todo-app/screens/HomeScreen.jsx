@@ -16,10 +16,13 @@ export function HomeScreen({ navigation, tasks, deleteTask, completeTask }) {
         modalizeRef.current?.open();
     };
 
-    const closeSheet = () => {
-        setSelectedTask(null);
+    const stopModalize= () => {
         modalizeRef.current?.close();
     };
+
+    const handleCloseSheet = () => {
+        setSelectedTask(null);
+    }
 
     return (
         <LinearGradient
@@ -39,8 +42,9 @@ export function HomeScreen({ navigation, tasks, deleteTask, completeTask }) {
                 </View>
                 <BottomSheet
                     selectedTask={selectedTask}
-                    closeSheet={closeSheet}
                     modalizeRef={modalizeRef}
+                    handleCloseSheet={handleCloseSheet}
+                    stopModalize={stopModalize}
                 />
             </SafeAreaView>
         </LinearGradient>

@@ -38,7 +38,7 @@ export function AddTaskScreen({navigation, addTask}) {
 
     return (
         <LinearGradient
-            colors={['#f5f7fa', '#eaeaea', '#fff']}
+            colors={['#f2e6ff', '#e0ecff', '#fff']}
             style={{ flex: 1 }}
         >
             <SafeAreaView style={ styles.container }>

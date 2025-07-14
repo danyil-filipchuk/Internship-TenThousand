@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Switch, Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { formatDate } from "../../utils/formatDate";
 
 export function DeadlinePicker({ value, onChange }) {
 
@@ -19,14 +20,6 @@ export function DeadlinePicker({ value, onChange }) {
     const handleSwitch = (val) => {
         setWithDeadline(val);
         !val ? onChange(null) : onChange(date);
-    }
-
-    const formatDate = (date) => {
-        return date.toLocaleDateString('en-GB', {
-            day: '2-digit',
-            month: 'short',
-            year: 'numeric'
-        });
     }
 
     return (

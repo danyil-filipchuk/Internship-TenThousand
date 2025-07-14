@@ -1,41 +1,56 @@
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { Modalize } from "react-native-modalize";
+import { formatDate } from "../../utils/formatDate";
+import TimerIcon from "../../assets/images/TimerIcon.svg";
+import MapPinIcon from "../../assets/images/MapPinIcon.svg";
+import PhoneIcon from "../../assets/images/PhoneIcon.svg";
 
-export function BottomSheet({ modalizeRef, closeSheet, selectedTask }) {
-    if (!selectedTask) return null;
+export function BottomSheet({ modalizeRef, selectedTask, handleCloseSheet, stopModalize }) {
 
-    const info = [
-        {
-            label: 'Deadline',
-            value: selectedTask.deadline
-                ? new Date(selectedTask.deadline).toLocaleDateString()
-                : 'Whenever you want!',
-        },
-        {
-            label: 'Location',
-            value: selectedTask.location?.address
-                || (selectedTask.location
-                    ? `${selectedTask.location.latitude?.toFixed(5)}, ${selectedTask.location.longitude?.toFixed(5)}`
-                    : 'Anywhere'),
-        },
-        {
-            label: 'Contact',
-            value: selectedTask.contact?.name || 'Just you!',
-        },
-    ];
+    let info = [];
+
+    if (selectedTask) {
+        info = [
+            {
+                icon: <TimerIcon />,
+                label: 'Deadline',
+                value: selectedTask.deadline
+                    ? formatDate(selectedTask.deadline)
+                    : 'Whenever you want !',
+            },
+            {
+                icon: <MapPinIcon />,
+                label: 'Location',
+                value: selectedTask.location?.address
+                    || (selectedTask.location
+                        ? `${selectedTask.location.latitude?.toFixed(5)}, ${selectedTask.location.longitude?.toFixed(5)}`
+                        : 'Anywhere !'),
+            },
+            {
+                icon: <PhoneIcon />,
+                label: 'Contact',
+                value: selectedTask.contact?.name || 'Just you !',
+            },
+        ];
+    }
 
     return (
-        <Modalize ref={modalizeRef} adjustToContentHeight>
+        <Modalize
+            ref={modalizeRef}
+            adjustToContentHeight
+            onClose={handleCloseSheet}
+        >
             <View style={styles.sheet}>
                 {info.map((item, idx) => (
                     <View key={idx} style={ styles.row }>
+                        {item.icon}
                         <Text style={ styles.label }>{item.label}:</Text>
                         <Text style={ styles.value } numberOfLines={3} ellipsizeMode="tail">
                             {item.value}
                         </Text>
                     </View>
                 ))}
-                <TouchableOpacity onPress={closeSheet}>
+                <TouchableOpacity onPress={stopModalize}>
                     <Text style={ styles.close }>Close</Text>
                 </TouchableOpacity>
             </View>
@@ -45,7 +60,8 @@ export function BottomSheet({ modalizeRef, closeSheet, selectedTask }) {
 
 const styles = StyleSheet.create({
     sheet: {
-        padding: 24,
+        paddingVertical: 20,
+        paddingHorizontal: 10,
         borderRadius: 22,
         alignItems: "stretch",
         backgroundColor: "#fff",

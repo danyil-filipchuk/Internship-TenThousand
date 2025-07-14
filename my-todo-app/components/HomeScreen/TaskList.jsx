@@ -35,11 +35,9 @@ export function TaskList({tasks, completeTask, deleteTask, openSheet }) {
                 </Animated.View>
             }
             ListEmptyComponent={
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '100%' }}>
                     <Text style={ styles.emptyList }>
                         no tasks yet
                     </Text>
-                </View>
             }
             contentContainerStyle={{ flexGrow: 1, padding: 10, paddingBottom: 70 }}
         />
@@ -95,6 +93,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     emptyList: {
+        marginTop: 200,
         color: '#7A869A',
         fontSize: 32,
         textAlign: 'center',
