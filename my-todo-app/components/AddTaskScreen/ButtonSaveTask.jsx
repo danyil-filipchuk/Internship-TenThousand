@@ -10,8 +10,9 @@ export function ButtonSaveTask({ onPress }) {
 
 const styles = StyleSheet.create({
     button: {
+        marginTop: 24,
         backgroundColor: "#4F8EF7",
-        paddingVertical: 14,
+        paddingVertical: 10,
         paddingHorizontal: 32,
         borderRadius: 12,
         alignItems: 'center',
@@ -24,9 +25,8 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: '#fff',
-        fontSize: 20,
-        fontWeight: 'bold',
+        fontSize: 24,
         letterSpacing: 1,
-        fontFamily: 'Montserrat-SemiBold',
+        fontFamily: 'Montserrat-Regular'
     },
 })

@@ -1,20 +1,26 @@
 import { useState } from "react";
-import { SafeAreaView, View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { SafeAreaView, View, StyleSheet, Text } from "react-native";
 import { showMessage } from "react-native-flash-message";
 import { ButtonSaveTask } from "../components/AddTaskScreen/ButtonSaveTask";
 import { TaskInput } from "../components/AddTaskScreen/TaskInput";
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { DeadlinePicker } from "../components/AddTaskScreen/DeadlinePicker";
+import { ContactPicker } from "../components/AddTaskScreen/ContactPicker";
+import { LocationPicker } from "../components/AddTaskScreen/LocationPicker";
+import { LinearGradient } from 'expo-linear-gradient';
 
 export function AddTaskScreen({navigation, addTask}) {
     const [text, setText] = useState('');
-    const [date, setDate] = useState(new Date());
-    const [isPickerVisible, setPickerVisible] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedContact, setSelectedContact] = useState(null);
+    const [selectedLocation, setSelectedLocation] = useState(null);
 
     const handleSave = () => {
         if (text.trim()) {
             addTask({
                 text: text.trim(),
-                deadline: date
+                deadline: selectedDate,
+                contact: selectedContact,
+                location: selectedLocation,
             });
             showMessage({
                 message: 'task added',
@@ -30,52 +36,59 @@ export function AddTaskScreen({navigation, addTask}) {
         }
     }
 
-    const confirmDate = (selectedDate) => {
-        setPickerVisible(false);
-        if (selectedDate) {
-            setDate(selectedDate);
-        }
-    };
-
     return (
-        <SafeAreaView style={ styles.container }>
-            <View style={ styles.card }>
-                <TaskInput
-                    value={text}
-                    onChangeText={setText}
-                    onSubmitEditing={handleSave}
-                />
-                <TouchableOpacity onPress={() => setPickerVisible(true)}>
-                    <Text style={styles.dateText}>
-                        Deadline: {date.toLocaleDateString()}
-                    </Text>
-                </TouchableOpacity>
-                <DateTimePickerModal
-                    isVisible={isPickerVisible}
-                    mode="date"
-                    date={date}
-                    onConfirm={confirmDate}
-                    onCancel={() => setPickerVisible(false)}
-                    minimumDate={new Date(2000, 0, 1)}
-                    maximumDate={new Date(2100, 11, 31)}
-                />
-                <ButtonSaveTask onPress={handleSave}/>
-            </View>
-        </SafeAreaView>
+        <LinearGradient
+            colors={['#f5f7fa', '#eaeaea', '#fff']}
+            style={{ flex: 1 }}
+        >
+            <SafeAreaView style={ styles.container }>
+                <View style={ styles.card }>
+
+                    <TaskInput
+                        value={text}
+                        onChangeText={setText}
+                        onSubmitEditing={handleSave}
+                    />
+
+                    <ButtonSaveTask onPress={handleSave}/>
+
+                    <View style={{ width:'100%' }}>
+                        <Text style={ styles.optionsTittle }>additional options :</Text>
+
+                        <DeadlinePicker
+                            value={selectedDate}
+                            onChange={setSelectedDate}
+                        />
+
+                        <LocationPicker
+                            value={selectedLocation}
+                            onChange={setSelectedLocation}
+                        />
+
+                        <ContactPicker
+                            value={selectedContact}
+                            onChange={setSelectedContact}
+                        />
+                    </View>
+
+                </View>
+            </SafeAreaView>
+        </LinearGradient>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fafbff',
         alignItems: 'center',
         justifyContent: 'center',
     },
     card: {
         backgroundColor: "#fff",
-        padding: 24,
-        borderRadius: 16,
+        padding: 18,
+        borderRadius: 12,
+        borderWidth: 1.5,
+        borderColor: '#C3D1E7',
         width: '90%',
         alignItems: 'center',
         shadowColor: "#000",
@@ -84,10 +97,12 @@ const styles = StyleSheet.create({
         shadowRadius: 8,
         elevation: 3,
     },
-    dateText: {
-        fontSize: 24,
-        color: "#4F8EF7",
-        fontWeight: 'bold',
-        marginVertical: 20,
-    },
+    optionsTittle: {
+        textAlign: 'center',
+        fontSize: 22,
+        color: "#222",
+        fontWeight: '600',
+        marginTop: 24,
+        fontFamily: 'Montserrat-SemiBold',
+    }
 })

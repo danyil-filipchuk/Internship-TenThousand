@@ -1,9 +1,10 @@
-import { View, SafeAreaView, Text } from "react-native";
+import { View, SafeAreaView } from "react-native";
+import { TaskList } from "../components/HomeScreen/TaskList";
+import { BottomSheet } from "../components/HomeScreen/BottomSheet";
 import { ButtonAddNewTask } from "../components/HomeScreen/ButtonAddNewTask";
-import {TaskList} from "../components/HomeScreen/TaskList";
-import {NoInternetBanner} from "../components/HomeScreen/NoInternetBanner";
+import { NoInternetBanner } from "../components/HomeScreen/NoInternetBanner";
 import { useState, useRef } from "react";
-import {BottomSheet} from "../components/HomeScreen/BottomSheet";
+import { LinearGradient } from 'expo-linear-gradient';
 
 export function HomeScreen({ navigation, tasks, deleteTask, completeTask }) {
 
@@ -15,28 +16,33 @@ export function HomeScreen({ navigation, tasks, deleteTask, completeTask }) {
         modalizeRef.current?.open();
     };
 
-    const handleClose = () => {
+    const closeSheet = () => {
         setSelectedTask(null);
         modalizeRef.current?.close();
     };
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <NoInternetBanner/>
-            <TaskList
-                tasks={tasks}
-                deleteTask={deleteTask}
-                completeTask={completeTask}
-                openSheet={openSheet}
-            />
-            <View>
-                <ButtonAddNewTask onPress={() => navigation.navigate('AddTask')}/>
-            </View>
-            <BottomSheet
-                selectedTask={selectedTask}
-                handleClose={handleClose}
-                modalizeRef={modalizeRef}
-            />
-        </SafeAreaView>
+        <LinearGradient
+            colors={['#e0ecff', '#f7faff', '#fff']}
+            style={{ flex: 1 }}
+        >
+            <SafeAreaView style={{ flex: 1 }}>
+                <NoInternetBanner/>
+                <TaskList
+                    tasks={tasks}
+                    deleteTask={deleteTask}
+                    completeTask={completeTask}
+                    openSheet={openSheet}
+                />
+                <View>
+                    <ButtonAddNewTask onPress={() => navigation.navigate('AddTask')}/>
+                </View>
+                <BottomSheet
+                    selectedTask={selectedTask}
+                    closeSheet={closeSheet}
+                    modalizeRef={modalizeRef}
+                />
+            </SafeAreaView>
+        </LinearGradient>
     );
 }

@@ -35,12 +35,15 @@ export function TaskList({tasks, completeTask, deleteTask, openSheet }) {
                 </Animated.View>
             }
             ListEmptyComponent={
-                <Text style={ styles.emptyList }>
-                    no tasks yet
-                </Text>}
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+                    <Text style={ styles.emptyList }>
+                        no tasks yet
+                    </Text>
+                </View>
+            }
             contentContainerStyle={{ flexGrow: 1, padding: 10, paddingBottom: 70 }}
         />
-        )
+    )
 }
 
 const styles = StyleSheet.create({
@@ -57,12 +60,12 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         borderRadius: 12,
         borderWidth: 1,
-        borderColor: '#E0E0E0',
+        borderColor: '#C3D1E7',
         padding: 12,
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.07,
-        shadowRadius: 2,
+        shadowOpacity: 0.13,
+        shadowRadius: 4,
         elevation: 2,
     },
     index: {
@@ -92,8 +95,13 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     emptyList: {
-        color:'#bbb',
-        fontSize:35,
-        textAlign:'center'
-    }
+        color: '#7A869A',
+        fontSize: 32,
+        textAlign: 'center',
+        opacity: 0.85,
+        textShadowColor: '#E6ECF9',
+        textShadowOffset: { width: 0, height: 2 },
+        textShadowRadius: 4,
+        fontFamily: 'Montserrat-SemiBold',
+    },
 });

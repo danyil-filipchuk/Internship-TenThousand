@@ -1,10 +1,20 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { LinearGradient } from 'expo-linear-gradient';
 
 export function ButtonAddNewTask({ onPress }) {
     return (
-        <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={onPress} style={styles.button} >
-                <Text style={styles.buttonText}>add new task</Text>
+        <View style={ styles.buttonContainer }>
+            <TouchableOpacity onPress={onPress} activeOpacity={0.8} style={{width: '100%'}}>
+                <LinearGradient
+                    colors={['#4F8EF7', '#86B6F6']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={ styles.button }
+                >
+                    <Text style={ styles.buttonText } numberOfLines={1} adjustsFontSizeToFit>
+                        add new task
+                    </Text>
+                </LinearGradient>
             </TouchableOpacity>
         </View>
     )
@@ -23,11 +33,11 @@ const styles = StyleSheet.create({
         elevation: 4,
     },
     button: {
-        backgroundColor: "#4F8EF7",
+        width: '100%', // <-- Сюди!
         paddingVertical: 10,
         borderRadius: 16,
         alignItems: 'center',
-        width: '100%',
+        overflow: 'hidden', // <-- обов'язково!
     },
     buttonText: {
         color: '#fff',

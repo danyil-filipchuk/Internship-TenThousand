@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useFonts } from 'expo-font';
 import fonts from "./assets/fonts/fonts";
 import { NavigationContainer } from '@react-navigation/native';
@@ -9,8 +9,7 @@ import { HomeScreen } from './screens/HomeScreen';
 import { AddTaskScreen } from './screens/AddTaskScreen';
 import { useState, useEffect } from "react";
 import { loadTasksFromStorage, saveTasksToStorage } from './utils/Storage';
-import FlashMessage from "react-native-flash-message";
-import { showMessage } from "react-native-flash-message";
+import FlashMessage, { showMessage } from "react-native-flash-message";
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +36,8 @@ export default function App() {
                 text: task.text,
                 completed: false,
                 deadline: task.deadline,
+                contact: task.contact,
+                location: task.location,
             }
         ]);
     }
@@ -74,7 +75,13 @@ export default function App() {
               <Stack.Navigator initialRouteName="Home">
                   <Stack.Screen
                       name='Home'
-                      options={{title: 'my tasks'}}
+                      options={{
+                          title: 'my tasks',
+                          headerTitleStyle: {
+                              fontSize: 19,
+                              fontFamily: 'Montserrat-SemiBold',
+                          },
+                  }}
                   >
                       {props => <HomeScreen
                           {...props}
@@ -85,7 +92,17 @@ export default function App() {
                   </Stack.Screen>
                   <Stack.Screen
                       name='AddTask'
-                      options={{title: 'add new task'}}
+                      options={{
+                          title: 'add new task',
+                          headerTitleStyle: {
+                              fontSize: 19,
+                              fontFamily: 'Montserrat-SemiBold',
+                          },
+                          headerBackTitleStyle: {
+                              fontSize: 18,
+                              fontFamily: 'Montserrat-Regular',
+                          },
+                  }}
                   >
                       {props => <AddTaskScreen {...props} addTask={addTask} />}
                   </Stack.Screen>
