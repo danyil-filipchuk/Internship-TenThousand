@@ -1,6 +1,6 @@
 import { View, SafeAreaView } from "react-native";
 import { TaskList } from "../components/HomeScreen/TaskList";
-import { BottomSheet } from "../components/HomeScreen/BottomSheet";
+import { BottomSheet } from "../components/HomeScreen/BottomSheet/BottomSheet";
 import { ButtonAddNewTask } from "../components/HomeScreen/ButtonAddNewTask";
 import { NoInternetBanner } from "../components/HomeScreen/NoInternetBanner";
 import { useState, useRef } from "react";

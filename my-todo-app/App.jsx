@@ -10,7 +10,7 @@ import { AddTaskScreen } from './screens/AddTaskScreen';
 import { SettingsScreen } from "./screens/SettingsScreen";
 import { ProjectWebView } from './components/SettingsScreen/WebView';
 import { useState, useEffect } from "react";
-import { loadTasksFromStorage, saveTasksToStorage } from './utils/Storage';
+import { loadTasksFromStorage, saveTasksToStorage } from './utils/storage';
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import SettingsIcon from './assets/images/SettingsIcon.svg';
 

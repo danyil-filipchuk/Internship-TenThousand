@@ -11,7 +11,6 @@ export function LocationPicker({ value, onChange }) {
     const [modalVisible, setModalVisible] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    // Reverse geocode та address formatting
     const fetchAddress = async (coords) => {
         setLoading(true);
         let geo = await Location.reverseGeocodeAsync(coords);
@@ -139,7 +138,7 @@ export function LocationPicker({ value, onChange }) {
             >
                 <View style={ styles.modalOverlay }>
                     <View style={ styles.modalContent }>
-                        <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 10 }}>Pick location</Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 22, marginBottom: 10 }}>Pick location</Text>
                         <MapView
                             style={{ width: "100%", height: 600, borderRadius: 8 }}
                             initialRegion={{
@@ -155,7 +154,7 @@ export function LocationPicker({ value, onChange }) {
                             )}
                         </MapView>
                         <TouchableOpacity onPress={() => setModalVisible(false)} style={{ marginTop: 12 }}>
-                            <Text style={{ color: '#4F8EF7', fontSize: 16 }}>Cancel</Text>
+                            <Text style={{ color: '#4F8EF7', fontSize: 20 }}>Cancel</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
