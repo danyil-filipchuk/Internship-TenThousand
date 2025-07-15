@@ -7,9 +7,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { HomeScreen } from './screens/HomeScreen';
 import { AddTaskScreen } from './screens/AddTaskScreen';
+import { SettingsScreen } from "./screens/SettingsScreen";
+import { ProjectWebView } from './components/SettingsScreen/WebView';
 import { useState, useEffect } from "react";
 import { loadTasksFromStorage, saveTasksToStorage } from './utils/Storage';
 import FlashMessage, { showMessage } from "react-native-flash-message";
+import SettingsIcon from './assets/images/SettingsIcon.svg';
 
 const Stack = createNativeStackNavigator();
 
@@ -73,15 +76,22 @@ export default function App() {
       <GestureHandlerRootView style={{flex: 1}}>
           <NavigationContainer>
               <Stack.Navigator initialRouteName="Home">
+
                   <Stack.Screen
                       name='Home'
-                      options={{
+                      options={({ navigation }) => ({
                           title: 'my tasks',
                           headerTitleStyle: {
                               fontSize: 19,
                               fontFamily: 'Montserrat-SemiBold',
                           },
-                  }}
+                          headerRight: () => (
+                              <SettingsIcon
+                                  style={{marginRight: -10, marginBottom:10}}
+                                  onPress={() => navigation.navigate('Settings')}
+                              />
+                          )
+                      })}
                   >
                       {props => <HomeScreen
                           {...props}
@@ -90,6 +100,7 @@ export default function App() {
                           completeTask={completeTask}
                       />}
                   </Stack.Screen>
+
                   <Stack.Screen
                       name='AddTask'
                       options={{
@@ -102,10 +113,43 @@ export default function App() {
                               fontSize: 18,
                               fontFamily: 'Montserrat-Regular',
                           },
-                  }}
+                      }}
                   >
                       {props => <AddTaskScreen {...props} addTask={addTask} />}
                   </Stack.Screen>
+
+                  <Stack.Screen
+                      name='Settings'
+                      component={SettingsScreen}
+                      options={{
+                          title: 'settings',
+                          headerTitleStyle: {
+                              fontSize: 19,
+                              fontFamily: 'Montserrat-SemiBold',
+                          },
+                          headerBackTitleStyle: {
+                              fontSize: 18,
+                              fontFamily: 'Montserrat-Regular',
+                          },
+                      }}
+                  />
+
+                  <Stack.Screen
+                      name='ProjectWebView'
+                      component={ProjectWebView}
+                      options={{
+                          title: 'code of project',
+                          headerTitleStyle: {
+                              fontSize: 19,
+                              fontFamily: 'Montserrat-SemiBold',
+                          },
+                          headerBackTitleStyle: {
+                              fontSize: 18,
+                              fontFamily: 'Montserrat-Regular',
+                          },
+                      }}
+                  />
+
               </Stack.Navigator>
           </NavigationContainer>
           <FlashMessage position='center' />

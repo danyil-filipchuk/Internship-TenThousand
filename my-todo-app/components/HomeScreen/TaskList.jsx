@@ -1,5 +1,7 @@
 import Animated, { FadeInDown, FadeOutUp } from 'react-native-reanimated';
 import { FlatList, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import MaskedView from '@react-native-masked-view/masked-view';
+import { LinearGradient } from 'expo-linear-gradient';
 import { TaskActionsIcons } from "./TaskActionsIcons";
 import { CopyIconButton } from "./CopyIconButton";
 import MoreIcon from "../../assets/images/MoreIcon.svg";
@@ -35,9 +37,24 @@ export function TaskList({tasks, completeTask, deleteTask, openSheet }) {
                 </Animated.View>
             }
             ListEmptyComponent={
-                    <Text style={ styles.emptyList }>
-                        no tasks yet
-                    </Text>
+                <MaskedView
+                    maskElement={
+                        <Text style={[styles.emptyList, { color: 'black' }]}>
+                            no tasks yet
+                        </Text>
+                    }
+                >
+                    <LinearGradient
+                        colors={['#7F7FD5', '#86A8E7', '#91EAE4']}
+                        start={{ x: 1, y: 1 }}
+                        end={{ x: 0, y: 0 }}
+                        style={{ flex: 1 }}
+                    >
+                        <Text style={[styles.emptyList, { opacity: 0 }]}>
+                            no tasks yet
+                        </Text>
+                    </LinearGradient>
+                </MaskedView>
             }
             contentContainerStyle={{ flexGrow: 1, padding: 10, paddingBottom: 70 }}
         />
@@ -94,11 +111,9 @@ const styles = StyleSheet.create({
     },
     emptyList: {
         marginTop: 200,
-        color: '#7A869A',
         fontSize: 32,
         textAlign: 'center',
         opacity: 0.85,
-        textShadowColor: '#E6ECF9',
         textShadowOffset: { width: 0, height: 2 },
         textShadowRadius: 4,
         fontFamily: 'Montserrat-SemiBold',

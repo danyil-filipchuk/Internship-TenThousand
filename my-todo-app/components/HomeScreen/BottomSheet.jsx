@@ -4,6 +4,8 @@ import { formatDate } from "../../utils/formatDate";
 import TimerIcon from "../../assets/images/TimerIcon.svg";
 import MapPinIcon from "../../assets/images/MapPinIcon.svg";
 import PhoneIcon from "../../assets/images/PhoneIcon.svg";
+import ShareIcon from "../../assets/images/ShareIcon.svg";
+import { Share } from 'react-native';
 
 export function BottomSheet({ modalizeRef, selectedTask, handleCloseSheet, stopModalize }) {
 
@@ -50,6 +52,14 @@ export function BottomSheet({ modalizeRef, selectedTask, handleCloseSheet, stopM
                         </Text>
                     </View>
                 ))}
+
+                <TouchableOpacity style={ styles.shareRow }>
+                    <View style={ styles.shareRow }>
+                        <ShareIcon width={22} height={22} style={{ marginRight: 8 }}/>
+                        <Text style={ styles.shareText }>Share Task</Text>
+                    </View>
+                </TouchableOpacity>
+
                 <TouchableOpacity onPress={stopModalize}>
                     <Text style={ styles.close }>Close</Text>
                 </TouchableOpacity>
@@ -91,7 +101,7 @@ const styles = StyleSheet.create({
     value: {
         fontSize: 17,
         color: "#4F8EF7",
-        flex: 1, // важливо для переносу!
+        flex: 1,
         fontFamily: 'Montserrat-Medium',
         flexWrap: 'wrap',
         lineHeight: 22,
@@ -116,6 +126,31 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat-SemiBold',
         letterSpacing: 0.5,
         textAlign: 'center'
+    },
+    shareButton: {
+        alignSelf: 'center',
+        marginVertical: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 24,
+        borderRadius: 8,
+        backgroundColor: '#E6ECF9',
+        flexDirection: 'row',
+        alignItems: 'center',
+        shadowColor: "#4F8EF7",
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.09,
+        shadowRadius: 4,
+        elevation: 1,
+    },
+    shareRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    shareText: {
+        fontSize: 17,
+        color: '#2944cc',
+        fontWeight: '600',
+        fontFamily: 'Montserrat-SemiBold',
     },
 });
 
