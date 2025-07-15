@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Switch, Text, View, StyleSheet } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
+import { useTheme } from "../../theme-context"
 
 // для камери
 // ImagePicker.launchCameraAsync
 
 export function PhotoPicker({ value, onChange }) {
     const [withPhoto, setWithPhoto] = useState(!!value);
+    const { theme } = useTheme();
 
     const pickImage = async () => {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -52,8 +54,13 @@ export function PhotoPicker({ value, onChange }) {
             </View>
 
             {withPhoto && value && (
-                <View style={styles.chosenBlock}>
-                    <Text style={styles.chosenText}>photo chosen</Text>
+                <View style={[styles.chosenBlock, {
+                    backgroundColor: theme.PhotoPickerBlockBackgroundColor,
+                    shadowColor: theme.PhotoPickerBlockShadowColor,
+                }]}>
+                    <Text style={[styles.chosenText, {color: theme.PhotoPickerTextColor}]}>
+                        photo chosen
+                    </Text>
                     <Text style={styles.checkMark}>✅</Text>
                 </View>
             )}
@@ -81,12 +88,10 @@ const styles = StyleSheet.create({
     chosenBlock: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: "#e7f0ff",
         borderRadius: 8,
         paddingHorizontal: 5,
         paddingVertical: 5,
         overflow: "hidden",
-        shadowColor: "#4F8EF7",
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.1,
         shadowRadius: 2,
@@ -95,7 +100,6 @@ const styles = StyleSheet.create({
     chosenText: {
         fontSize: 19,
         fontWeight: '600',
-        color: "#4F8EF7",
     },
     checkMark: {
         fontSize: 16,

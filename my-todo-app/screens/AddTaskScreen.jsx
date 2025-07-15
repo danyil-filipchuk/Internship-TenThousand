@@ -8,6 +8,7 @@ import { DeadlinePicker } from "../components/AddTaskScreen/DeadlinePicker";
 import { ContactPicker } from "../components/AddTaskScreen/ContactPicker";
 import { LocationPicker } from "../components/AddTaskScreen/LocationPicker";
 import { LinearGradient } from 'expo-linear-gradient';
+import {useTheme} from "../theme-context";
 
 export function AddTaskScreen({navigation, addTask}) {
     const [text, setText] = useState('');
@@ -16,6 +17,8 @@ export function AddTaskScreen({navigation, addTask}) {
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedContact, setSelectedContact] = useState(null);
     const [selectedLocation, setSelectedLocation] = useState(null);
+
+    const { theme, themeName, toggleTheme } = useTheme();
 
     const handleSave = () => {
         if (text.trim()) {
@@ -42,7 +45,11 @@ export function AddTaskScreen({navigation, addTask}) {
 
     return (
         <LinearGradient
-            colors={['#f2e6ff', '#e0ecff', '#fff']}
+            colors={
+                themeName === 'light'
+                    ? ['#e0ecff', '#f7faff', '#fff']
+                    : ['#181C22', '#232A3D', '#232A3D']
+            }
             style={{ flex: 1 }}
         >
             <SafeAreaView style={ styles.container }>

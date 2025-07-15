@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import * as Device from 'expo-device';
 import { SectionList, StyleSheet, Text, View }  from "react-native";
+import { useTheme } from "../../theme-context"
 
 export function DeviceInfo() {
     const [sections, setSections] = useState([]);
+    const { theme } = useTheme();
 
     useEffect(() => {
         (async () => {
@@ -35,7 +37,7 @@ export function DeviceInfo() {
                         { label: 'OS', value: `${deviceInfo.osName} ${deviceInfo.osVersion}` },
                         { label: 'Is real device', value: deviceInfo.isDevice },
                         { label: 'CPU', value: deviceInfo.supportedCpuArchitectures },
-                        { label: 'Uptime', value: `${deviceInfo.uptime} sec` },
+                        { label: 'Uptime', value: `${deviceInfo.uptime.toFixed()} sec` },
                     ]
                 },
             ]);
@@ -49,7 +51,7 @@ export function DeviceInfo() {
                 keyExtractor={( item, index ) => index.toString()}
                 renderSectionHeader={({ section: { title } }) => (
                     <View style={ styles.sectionBlock }>
-                        <Text style={ styles.header }>{title}</Text>
+                        <Text style={[styles.header, {color: theme.DeviceInfoHeaderColor}]}>{title}</Text>
                     </View>
                 )}
                 renderItem={({ item, section, index }) => (
@@ -58,8 +60,8 @@ export function DeviceInfo() {
                         index === 0 ? styles.firstInfoBlock : {},
                         index === section.data.length - 1 ? styles.lastInfoBlock : {},
                     ]}>
-                        <Text style={ styles.label }>{item.label}:</Text>
-                        <Text style={ styles.value }>{item.value}</Text>
+                        <Text style={[styles.label, {color: theme.DeviceInfoHLabelColor}]}>{item.label}:</Text>
+                        <Text style={[styles.value, {color: theme.DeviceInfoValueColor}]}>{item.value}</Text>
                     </View>
                 )}
                 SectionSeparatorComponent={() => <View style={{ height: 18 }} />}
@@ -81,7 +83,6 @@ const styles = StyleSheet.create({
     header: {
         fontSize: 20,
         fontWeight: 'bold',
-        color: '#222',
         fontFamily: 'Montserrat-SemiBold',
     },
     infoBlock: {
@@ -93,14 +94,12 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 17,
-        color: '#5D6A8A',
         minWidth: 120,
         fontFamily: 'Montserrat-Regular',
     },
     value: {
         fontSize: 17,
         marginLeft: 5,
-        color: '#242A4D',
         fontFamily: 'Montserrat-Medium',
         flexWrap: 'wrap',
     },

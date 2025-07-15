@@ -1,28 +1,56 @@
 import React from 'react';
-import { SafeAreaView, TouchableOpacity, StyleSheet, Text, View } from "react-native";
+import { useTheme } from "../theme-context";
+import { SafeAreaView, TouchableOpacity, StyleSheet, Text, View, Switch } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { DeviceInfo } from "../components/SettingsScreen/DeviceInfo";
 
 export function SettingsScreen({ navigation }) {
+    const { theme, themeName, toggleTheme } = useTheme();
+
     return (
         <LinearGradient
-            colors={['#e0ecff', '#f7faff', '#fff']}
+            colors={
+                themeName === 'light'
+                    ? ['#e0ecff', '#f7faff', '#fff']
+                    : ['#181C22', '#232A3D', '#232A3D']
+            }
             style={{ flex: 1 }}
         >
             <SafeAreaView style={ styles.container }>
                 <View style={ styles.bottomBlocks }>
-                    <View style={ styles.webViewBlock }>
-                        <Text style={ styles.webViewText }>
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 80 }}>
+                        <Text style={{ fontSize: 18, marginRight: 10 }}>
+                            {themeName === 'light' ? 'Light Theme' : 'Dark Theme'}
+                        </Text>
+                        <Switch
+                            value={themeName === 'dark'}
+                            onValueChange={toggleTheme}
+                        />
+                    </View>
+
+                    <View style={[styles.webViewBlock ,{
+                        borderColor: theme.WebViewBlockBorderColor,
+                        backgroundColor: theme.WebViewBlockBackgroundColor,
+                        shadowColor: theme.WebViewBlockShadowColor,
+                    }]}>
+                        <Text style={[styles.webViewText, {color: theme.WebViewTextColor}]}>
                             Detailed code of this project
                         </Text>
                         <TouchableOpacity
-                            style={ styles.webViewButton }
+                            style={[styles.webViewButton, {backgroundColor: theme.WebViewButtonBackgroundColor}]}
                             onPress={() => navigation.navigate('ProjectWebView')}
                         >
-                            <Text style={ styles.webViewButtonText }>View on GitHub</Text>
+                            <Text style={[styles.webViewButtonText, {color: theme.WebViewButtonTextColor}]}>
+                                View on GitHub
+                            </Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={ styles.deviceInfoBlock }>
+                    <View style={[styles.deviceInfoBlock, {
+                            borderColor: theme.DeviceInfoBorderColor,
+                            backgroundColor: theme.DeviceInfoBackgroundColor,
+                            shadowColor: theme.DeviceInfoShadowColor,}
+                    ]}>
                         <DeviceInfo />
                     </View>
                 </View>
@@ -46,10 +74,7 @@ const styles = StyleSheet.create({
         borderRadius: 14,
         padding: 20,
         borderWidth: 1.5,
-        borderColor: '#232A3D',
-        backgroundColor: 'rgba(255,255,255,0.15)',
         alignSelf: 'center',
-        shadowColor: "#6E9DF7",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.10,
         shadowRadius: 8,
@@ -60,11 +85,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 20,
         borderRadius: 14,
-        backgroundColor: 'rgba(255,255,255,0.15)',
         borderWidth: 1.5,
-        borderColor: '#232A3D',
         marginBottom: 16,
-        shadowColor: "#6E9DF7",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.10,
         shadowRadius: 8,
@@ -73,20 +95,17 @@ const styles = StyleSheet.create({
     webViewText: {
         fontSize: 20,
         fontWeight: '600',
-        color: '#222',
         textAlign: 'center',
         marginBottom: 16,
         fontFamily: 'Montserrat-SemiBold',
     },
     webViewButton: {
-        backgroundColor: '#4F8EF7',
         borderRadius: 8,
         paddingVertical: 12,
         paddingHorizontal: 32,
         marginBottom: 4,
     },
     webViewButtonText: {
-        color: '#fff',
         fontSize: 17,
         fontWeight: 'bold',
         fontFamily: 'Montserrat-SemiBold',
