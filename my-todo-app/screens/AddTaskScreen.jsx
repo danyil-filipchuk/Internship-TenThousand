@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { SafeAreaView, View, StyleSheet, Text } from "react-native";
 import { showMessage } from "react-native-flash-message";
-import { ButtonSaveTask } from "../components/AddTaskScreen/ButtonSaveTask";
 import { TaskInput } from "../components/AddTaskScreen/TaskInput";
+import { ButtonSaveTask } from "../components/AddTaskScreen/ButtonSaveTask";
+import { PhotoPicker } from "../components/AddTaskScreen/PhotoPicker";
 import { DeadlinePicker } from "../components/AddTaskScreen/DeadlinePicker";
 import { ContactPicker } from "../components/AddTaskScreen/ContactPicker";
 import { LocationPicker } from "../components/AddTaskScreen/LocationPicker";
@@ -10,6 +11,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 export function AddTaskScreen({navigation, addTask}) {
     const [text, setText] = useState('');
+
+    const [selectedPhoto, setSelectedPhoto] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedContact, setSelectedContact] = useState(null);
     const [selectedLocation, setSelectedLocation] = useState(null);
@@ -21,6 +24,7 @@ export function AddTaskScreen({navigation, addTask}) {
                 deadline: selectedDate,
                 contact: selectedContact,
                 location: selectedLocation,
+                photo: selectedPhoto,
             });
             showMessage({
                 message: 'task added',
@@ -55,6 +59,11 @@ export function AddTaskScreen({navigation, addTask}) {
                     <View style={{ width:'100%' }}>
                         <Text style={ styles.optionsTittle }>additional options :</Text>
 
+                        <PhotoPicker
+                            value={selectedPhoto}
+                            onChange={setSelectedPhoto}
+                        />
+
                         <DeadlinePicker
                             value={selectedDate}
                             onChange={setSelectedDate}
@@ -69,6 +78,7 @@ export function AddTaskScreen({navigation, addTask}) {
                             value={selectedContact}
                             onChange={setSelectedContact}
                         />
+
                     </View>
 
                 </View>

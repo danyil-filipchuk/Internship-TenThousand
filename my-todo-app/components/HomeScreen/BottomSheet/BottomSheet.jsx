@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         shadowRadius: 2,
         elevation: 2,
         color: "#2F326B",
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: '600',
         fontFamily: 'Montserrat-SemiBold',
         letterSpacing: 0.5,

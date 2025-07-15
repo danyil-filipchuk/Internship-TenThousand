@@ -2,7 +2,8 @@ import TimerIcon from "../../../assets/images/TimerIcon.svg";
 import { formatDate } from "../../../utils/formatDate";
 import MapPinIcon from "../../../assets/images/MapPinIcon.svg";
 import PhoneIcon from "../../../assets/images/PhoneIcon.svg";
-import { Text, View, StyleSheet } from "react-native";
+import PhotoIcon from "../../../assets/images/PhotoIcon.svg";
+import { Text, View, StyleSheet, Image } from "react-native";
 
 export function TaskInfo({ selectedTask }) {
     console.log(selectedTask);
@@ -31,6 +32,16 @@ export function TaskInfo({ selectedTask }) {
                 label: 'Contact',
                 value: selectedTask.contact?.name || 'Just you !',
             },
+            {
+                icon: <PhotoIcon />,
+                label: 'Photo',
+                value: selectedTask.photo ? (
+                    <Image
+                        source={{ uri: selectedTask.photo }}
+                        style={ styles.photo }
+                    />
+                ) : 'No photo',
+            },
         ];
     }
 
@@ -58,7 +69,7 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     label: {
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: "600",
         color: "#222",
         minWidth: 90,
@@ -66,12 +77,19 @@ const styles = StyleSheet.create({
         flexShrink: 0,
     },
     value: {
-        fontSize: 17,
+        fontSize: 19,
         color: "#4F8EF7",
         flex: 1,
         fontFamily: 'Montserrat-Medium',
         flexWrap: 'wrap',
         lineHeight: 22,
         textAlign: 'left',
+    },
+    photo: {
+        width: 200,
+        height: 180,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: "#C3D1E7",
     },
 })

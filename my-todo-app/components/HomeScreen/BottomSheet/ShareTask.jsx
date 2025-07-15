@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     shareText: {
-        fontSize: 17,
+        fontSize: 19,
         color: '#2944cc',
         fontWeight: '600',
         fontFamily: 'Montserrat-SemiBold',

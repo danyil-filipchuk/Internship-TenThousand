@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
     contactRow: {
         flexDirection: 'row',
         alignItems: 'center',
+        marginTop: 0,
         width: '100%',
         justifyContent: 'flex-start',
     },
@@ -115,7 +116,8 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         backgroundColor: "#e7f0ff",
         borderRadius: 8,
-        marginTop: 10,
+        marginTop: 15,
+        marginBottom: 10,
         paddingHorizontal: 5,
         paddingVertical: 5,
         overflow: "hidden",

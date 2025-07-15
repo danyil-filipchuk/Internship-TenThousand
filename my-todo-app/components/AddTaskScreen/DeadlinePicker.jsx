@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     deadlineRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 24,
+        marginTop: 15,
         width: '100%',
         justifyContent: 'flex-start',
     },
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: "#222",
         fontFamily: 'Montserrat-Regular',
-        marginRight: 15,
+        marginRight: 5,
     },
     dateText: {
         fontSize: 18,

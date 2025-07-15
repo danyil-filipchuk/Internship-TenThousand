@@ -154,7 +154,7 @@ export function LocationPicker({ value, onChange }) {
                             )}
                         </MapView>
                         <TouchableOpacity onPress={() => setModalVisible(false)} style={{ marginTop: 12 }}>
-                            <Text style={{ color: '#4F8EF7', fontSize: 20 }}>Cancel</Text>
+                            <Text style={{ color: '#4F8EF7', fontSize: 22 }}>Cancel</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     locationLabel: {
         fontSize: 20,
         color: "#222",
-        marginRight: 20,
+        marginRight: 10,
         fontFamily: 'Montserrat-Regular',
     },
     locationText: {
@@ -184,8 +184,8 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         backgroundColor: "#e7f0ff",
         borderRadius: 8,
-        marginTop: 10,
-        marginBottom: 24,
+        marginTop: 0,
+        marginBottom: 15,
         paddingHorizontal: 5,
         paddingVertical: 5,
         overflow: "hidden",

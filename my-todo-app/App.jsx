@@ -41,6 +41,7 @@ export default function App() {
                 deadline: task.deadline,
                 contact: task.contact,
                 location: task.location,
+                photo: task.photo,
             }
         ]);
     }
