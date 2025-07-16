@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme } from "../theme-context";
+import { useTheme } from "../theme/theme-context";
 import { SafeAreaView, TouchableOpacity, StyleSheet, Text, View, Switch } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { DeviceInfo } from "../components/SettingsScreen/DeviceInfo";
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
         elevation: 3,
     },
     webViewText: {
-        fontSize: 20,
+        fontSize: 22,
         fontWeight: '600',
         textAlign: 'center',
         marginBottom: 16,

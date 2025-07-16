@@ -12,14 +12,17 @@ import { ProjectWebView } from './components/SettingsScreen/WebView';
 import { useState, useEffect } from "react";
 import { loadTasksFromStorage, saveTasksToStorage } from './utils/storage';
 import FlashMessage, { showMessage } from "react-native-flash-message";
-import SettingsIcon from './assets/images/SettingsIcon.svg';
-import { ThemeProvider } from './theme-context';
+import SettingsIcon from './assets/images/IconSettings.svg';
+import { ThemeProvider, useTheme } from './theme/theme-context';
+import { ThemedStatusBar } from "./ThemedStatusBar";
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+function AppContent() {
     const [tasks, setTasks, ] = useState([]);
     const [fontsLoaded] = useFonts(fonts);
+
+    const { theme } = useTheme();
 
     useEffect(() => {
         (async () => {
@@ -75,88 +78,89 @@ export default function App() {
     }
 
   return (
-      <ThemeProvider>
-          <GestureHandlerRootView style={{flex: 1}}>
-              <NavigationContainer>
-                  <Stack.Navigator initialRouteName="Home">
+      <GestureHandlerRootView style={{
+          flex: 1,
+          backgroundColor: theme.HeaderBackgroundColor,}}
+      >
+          <ThemedStatusBar />
+          <NavigationContainer>
 
-                      <Stack.Screen
-                          name='Home'
-                          options={({ navigation }) => ({
-                              title: 'my tasks',
-                              headerTitleStyle: {
-                                  fontSize: 19,
-                                  fontFamily: 'Montserrat-SemiBold',
-                              },
-                              headerRight: () => (
-                                  <SettingsIcon
-                                      style={{marginRight: -10, marginBottom:10}}
-                                      onPress={() => navigation.navigate('Settings')}
-                                  />
-                              )
-                          })}
-                      >
-                          {props => <HomeScreen
-                              {...props}
-                              tasks={tasks}
-                              deleteTask={deleteTask}
-                              completeTask={completeTask}
-                          />}
-                      </Stack.Screen>
+              <Stack.Navigator
+                  initialRouteName="Home"
+                  screenOptions={{
+                      headerStyle: { backgroundColor: theme.HeaderBackgroundColor },
+                      headerTitleStyle: {
+                          fontSize: 19,
+                          fontFamily: 'Montserrat-SemiBold',
+                          color: theme.HeaderTitleColor,
+                      },
+                      headerBackTitleStyle: {
+                          fontSize: 18,
+                          fontFamily: 'Montserrat-Regular',
+                          color: theme.HeaderTitleColor,
+                      },
+                  }}
+              >
 
-                      <Stack.Screen
-                          name='AddTask'
-                          options={{
-                              title: 'add new task',
-                              headerTitleStyle: {
-                                  fontSize: 19,
-                                  fontFamily: 'Montserrat-SemiBold',
-                              },
-                              headerBackTitleStyle: {
-                                  fontSize: 18,
-                                  fontFamily: 'Montserrat-Regular',
-                              },
-                          }}
-                      >
-                          {props => <AddTaskScreen {...props} addTask={addTask} />}
-                      </Stack.Screen>
+                  <Stack.Screen
+                      name='Home'
+                      options={({ navigation }) => ({
+                          title: 'my tasks',
+                          headerRight: () => (
+                              <SettingsIcon
+                                  style={{marginRight: -10, marginBottom:10}}
+                                  onPress={() => navigation.navigate('Settings')}
+                              />
+                          )
+                      })}
+                  >
+                      {props => <HomeScreen
+                          {...props}
+                          tasks={tasks}
+                          deleteTask={deleteTask}
+                          completeTask={completeTask}
+                      />}
+                  </Stack.Screen>
 
-                      <Stack.Screen
-                          name='Settings'
-                          component={SettingsScreen}
-                          options={{
-                              title: 'settings',
-                              headerTitleStyle: {
-                                  fontSize: 19,
-                                  fontFamily: 'Montserrat-SemiBold',
-                              },
-                              headerBackTitleStyle: {
-                                  fontSize: 18,
-                                  fontFamily: 'Montserrat-Regular',
-                              },
-                          }}
-                      />
+                  <Stack.Screen
+                      name='AddTask'
+                      options={{
+                          title: 'add new task',
+                      }}
+                  >
+                      {props => <AddTaskScreen {...props} addTask={addTask} />}
+                  </Stack.Screen>
 
-                      <Stack.Screen
-                          name='ProjectWebView'
-                          component={ProjectWebView}
-                          options={{
-                              title: 'code of project',
-                              headerTitleStyle: {
-                                  fontSize: 19,
-                                  fontFamily: 'Montserrat-SemiBold',
-                              },
-                              headerBackTitleStyle: {
-                                  fontSize: 18,
-                                  fontFamily: 'Montserrat-Regular',
-                              },
-                          }}
-                      />
+                  <Stack.Screen
+                      name='Settings'
+                      component={SettingsScreen}
+                      options={{
+                          title: 'settings',
+                      }}
+                  />
 
-                  </Stack.Navigator>
-              </NavigationContainer>
-              <FlashMessage position='center' />
-          </GestureHandlerRootView>
-      </ThemeProvider>
-  );
+                  <Stack.Screen
+                      name='ProjectWebView'
+                      component={ProjectWebView}
+                      options={{
+                          title: 'code of project',
+                      }}
+                  />
+
+              </Stack.Navigator>
+
+          </NavigationContainer>
+
+          <FlashMessage position='center' />
+
+      </GestureHandlerRootView>
+  )
+}
+
+export default function App() {
+    return (
+        <ThemeProvider>
+            <AppContent/>
+        </ThemeProvider>
+    )
 }

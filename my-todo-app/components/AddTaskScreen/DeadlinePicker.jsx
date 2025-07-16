@@ -2,12 +2,15 @@ import { useState } from "react";
 import { Switch, Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { formatDate } from "../../utils/formatDate";
+import {useTheme} from "../../theme/theme-context";
 
 export function DeadlinePicker({ value, onChange }) {
 
     const [withDeadline, setWithDeadline] = useState(!!value);
     const [date, setDate] = useState(new Date());
     const [pickerVisible, setPickerVisible] = useState(false);
+
+    const { theme } = useTheme();
 
     const confirmDate = (selectedDate) => {
         setPickerVisible(false);
@@ -24,19 +27,26 @@ export function DeadlinePicker({ value, onChange }) {
 
     return (
         <View style={ styles.deadlineRow }>
-            <Text style={ styles.deadlineLabel }>add deadline</Text>
+            <Text style={[styles.deadlineLabel, {color: theme.DeadlinePickerLabel}]}>add deadline</Text>
             <View style={{ transform: [{ scale: 0.8 }] }}>
                 <Switch
                     value={withDeadline}
                     onValueChange={handleSwitch}
-                    thumbColor={withDeadline ? "#4F8EF7" : "#fff"}
-                    trackColor={{ false: "#ccc", true: "#B3D2FF" }}
+                    thumbColor={withDeadline ? theme.SwitchThumbOn : theme.SwitchThumbOff}
+                    trackColor={{
+                        false: theme.SwitchTrackOff,
+                        true: theme.SwitchTrackOn,
+                    }}
                 />
             </View>
             {withDeadline && (
                 <>
                     <TouchableOpacity onPress={() => setPickerVisible(true)}>
-                        <Text style={ styles.dateText }>
+                        <Text style={[styles.dateText, {
+                            color: theme.DeadlinePickerTextColor,
+                            backgroundColor: theme.DeadlinePickerBackgroundColor,
+                            shadowColor: theme.DeadlinePickerShadowColor,
+                        }]}>
                             {formatDate(date)}
                         </Text>
                     </TouchableOpacity>
@@ -65,21 +75,17 @@ const styles = StyleSheet.create({
     },
     deadlineLabel: {
         fontSize: 20,
-        color: "#222",
         fontFamily: 'Montserrat-Regular',
         marginRight: 5,
     },
     dateText: {
         fontSize: 18,
-        color: "#4F8EF7",
         fontWeight: '600',
-        backgroundColor: "#e7f0ff",
         borderRadius: 8,
         paddingHorizontal: 5,
         paddingVertical: 5,
         marginLeft: 12,
         overflow: "hidden",
-        shadowColor: "#4F8EF7",
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.1,
         shadowRadius: 2,

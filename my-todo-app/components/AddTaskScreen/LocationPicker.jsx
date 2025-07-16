@@ -3,6 +3,7 @@ import { View, Text, Switch, TouchableOpacity, Modal, StyleSheet } from "react-n
 import MapView, { Marker } from 'react-native-maps';
 import { showMessage } from "react-native-flash-message";
 import * as Location from 'expo-location';
+import {useTheme} from "../../theme/theme-context";
 
 export function LocationPicker({ value, onChange }) {
     const [withLocation, setWithLocation] = useState(!!value);
@@ -10,6 +11,8 @@ export function LocationPicker({ value, onChange }) {
     const [address, setAddress] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    const { theme } = useTheme();
 
     const fetchAddress = async (coords) => {
         setLoading(true);
@@ -100,13 +103,16 @@ export function LocationPicker({ value, onChange }) {
     return (
         <>
             <View style={ styles.locationRow }>
-                <Text style={styles.locationLabel}>add location</Text>
+                <Text style={[styles.locationLabel, {color: theme.LocationPickerLabel}]}>add location</Text>
                 <View style={{ transform: [{ scale: 0.8 }] }}>
                     <Switch
                         value={withLocation}
                         onValueChange={handleSwitch}
-                        thumbColor={withLocation ? "#4F8EF7" : "#fff"}
-                        trackColor={{ false: "#ccc", true: "#B3D2FF" }}
+                        thumbColor={withLocation ? theme.SwitchThumbOn : theme.SwitchThumbOff}
+                        trackColor={{
+                            false: theme.SwitchTrackOff,
+                            true: theme.SwitchTrackOn,
+                        }}
                     />
                 </View>
             </View>
@@ -117,14 +123,18 @@ export function LocationPicker({ value, onChange }) {
                         onPress={openMap}
                         disabled={loading}
                     >
-                        <Text style={ styles.locationText }>
+                        <Text style={[styles.locationText, {
+                            color: theme.LocationPickerTextColor,
+                            backgroundColor: theme.LocationPickerBackgroundColor,
+                            shadowColor: theme.LocationPickerShadowColor,
+                        }]}>
                             {loading
                                 ? "Loading..."
                                 : address
                                     ? address
                                     : location
                                         ? `${location.latitude.toFixed(5)}, ${location.longitude.toFixed(5)}`
-                                        : "Choose location"
+                                        : "choose location"
                             }
                         </Text>
                     </TouchableOpacity>
@@ -174,22 +184,18 @@ const styles = StyleSheet.create({
     },
     locationLabel: {
         fontSize: 20,
-        color: "#222",
         marginRight: 10,
         fontFamily: 'Montserrat-Regular',
     },
     locationText: {
         fontSize: 18,
-        color: "#4F8EF7",
         fontWeight: '600',
-        backgroundColor: "#e7f0ff",
         borderRadius: 8,
         marginTop: 0,
         marginBottom: 15,
         paddingHorizontal: 5,
         paddingVertical: 5,
         overflow: "hidden",
-        shadowColor: "#4F8EF7",
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.1,
         shadowRadius: 2,

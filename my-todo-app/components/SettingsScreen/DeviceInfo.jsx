@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as Device from 'expo-device';
 import { SectionList, StyleSheet, Text, View }  from "react-native";
-import { useTheme } from "../../theme-context"
+import { useTheme } from "../../theme/theme-context"
 
 export function DeviceInfo() {
     const [sections, setSections] = useState([]);
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     header: {
-        fontSize: 20,
+        fontSize: 22,
         fontWeight: 'bold',
         fontFamily: 'Montserrat-SemiBold',
     },
@@ -93,12 +93,12 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     label: {
-        fontSize: 17,
+        fontSize: 19,
         minWidth: 120,
         fontFamily: 'Montserrat-Regular',
     },
     value: {
-        fontSize: 17,
+        fontSize: 19,
         marginLeft: 5,
         fontFamily: 'Montserrat-Medium',
         flexWrap: 'wrap',

@@ -1,16 +1,16 @@
 import { View, SafeAreaView } from "react-native";
-import { TaskList } from "../components/HomeScreen/TaskList";
+import { TaskList } from "../components/HomeScreen/TaskList/TaskList";
 import { BottomSheet } from "../components/HomeScreen/BottomSheet/BottomSheet";
 import { ButtonAddNewTask } from "../components/HomeScreen/ButtonAddNewTask";
 import { NoInternetBanner } from "../components/HomeScreen/NoInternetBanner";
 import { useState, useRef } from "react";
 import { LinearGradient } from 'expo-linear-gradient';
-import { useTheme } from "../theme-context";
+import { useTheme } from "../theme/theme-context";
 
 export function HomeScreen({ navigation, tasks, deleteTask, completeTask }) {
     const modalizeRef = useRef(null);
     const [selectedTask, setSelectedTask] = useState(null);
-    const { theme, themeName, toggleTheme } = useTheme();
+    const { themeName } = useTheme();
 
     const openSheet = (task) => {
         setSelectedTask(task);

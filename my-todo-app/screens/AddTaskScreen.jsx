@@ -8,7 +8,7 @@ import { DeadlinePicker } from "../components/AddTaskScreen/DeadlinePicker";
 import { ContactPicker } from "../components/AddTaskScreen/ContactPicker";
 import { LocationPicker } from "../components/AddTaskScreen/LocationPicker";
 import { LinearGradient } from 'expo-linear-gradient';
-import {useTheme} from "../theme-context";
+import {useTheme} from "../theme/theme-context";
 
 export function AddTaskScreen({navigation, addTask}) {
     const [text, setText] = useState('');
@@ -18,7 +18,7 @@ export function AddTaskScreen({navigation, addTask}) {
     const [selectedContact, setSelectedContact] = useState(null);
     const [selectedLocation, setSelectedLocation] = useState(null);
 
-    const { theme, themeName, toggleTheme } = useTheme();
+    const { theme, themeName } = useTheme();
 
     const handleSave = () => {
         if (text.trim()) {
@@ -53,7 +53,11 @@ export function AddTaskScreen({navigation, addTask}) {
             style={{ flex: 1 }}
         >
             <SafeAreaView style={ styles.container }>
-                <View style={ styles.card }>
+                <View style={[styles.card, {
+                    backgroundColor: theme.AddTaskScreenBackgroundColor,
+                    borderColor: theme.AddTaskScreenBorderColor,
+                    shadowColor: theme.AddTaskScreenShadowColor,
+                }]}>
 
                     <TaskInput
                         value={text}
@@ -64,7 +68,7 @@ export function AddTaskScreen({navigation, addTask}) {
                     <ButtonSaveTask onPress={handleSave}/>
 
                     <View style={{ width:'100%' }}>
-                        <Text style={ styles.optionsTittle }>additional options :</Text>
+                        <Text style={[styles.optionsTittle, {color: theme.AddTaskScreenTitleColor}]}>additional options :</Text>
 
                         <PhotoPicker
                             value={selectedPhoto}
@@ -101,14 +105,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     card: {
-        backgroundColor: "#fff",
         padding: 18,
         borderRadius: 12,
         borderWidth: 1.5,
-        borderColor: '#C3D1E7',
         width: '90%',
         alignItems: 'center',
-        shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.06,
         shadowRadius: 8,
@@ -117,7 +118,6 @@ const styles = StyleSheet.create({
     optionsTittle: {
         textAlign: 'center',
         fontSize: 22,
-        color: "#222",
         fontWeight: '600',
         marginTop: 24,
         fontFamily: 'Montserrat-SemiBold',

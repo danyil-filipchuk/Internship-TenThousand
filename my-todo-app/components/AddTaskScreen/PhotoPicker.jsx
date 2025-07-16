@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Switch, Text, View, StyleSheet } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
-import { useTheme } from "../../theme-context"
+import { useTheme } from "../../theme/theme-context"
 
 // для камери
 // ImagePicker.launchCameraAsync
@@ -42,14 +42,17 @@ export function PhotoPicker({ value, onChange }) {
 
     return (
         <View style={ styles.photoRow }>
-            <Text style={ styles.photoLabel }>add photo</Text>
+            <Text style={[styles.photoLabel, {color: theme.PhotoPickerLabel}]}>add photo</Text>
             <View style={{ transform: [{ scale: 0.8 }] }}>
                 <Switch
                     style={ styles.switch }
                     value={withPhoto}
                     onValueChange={handleSwitch}
-                    thumbColor={withPhoto ? "#4F8EF7" : "#fff"}
-                    trackColor={{ false: "#ccc", true: "#B3D2FF" }}
+                    thumbColor={withPhoto ? theme.SwitchThumbOn : theme.SwitchThumbOff}
+                    trackColor={{
+                        false: theme.SwitchTrackOff,
+                        true: theme.SwitchTrackOn,
+                    }}
                 />
             </View>
 
@@ -78,7 +81,6 @@ const styles = StyleSheet.create({
     },
     photoLabel: {
         fontSize: 20,
-        color: "#222",
         fontFamily: 'Montserrat-Regular',
         marginRight: 5,
     },

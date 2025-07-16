@@ -2,6 +2,7 @@ import { FlatList, Modal, Text, TouchableOpacity, View, StyleSheet, Switch } fro
 import { useState } from "react";
 import { showMessage } from "react-native-flash-message";
 import * as Contacts from 'expo-contacts';
+import {useTheme} from "../../theme/theme-context";
 
 export function ContactPicker({ value, onChange }) {
 
@@ -9,6 +10,8 @@ export function ContactPicker({ value, onChange }) {
     const [selectedContact, setSelectedContact] = useState(value || null);
     const [allContacts, setAllContacts] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
+
+    const { theme } = useTheme();
 
     const loadContacts = async () => {
         const { status } = await Contacts.requestPermissionsAsync();
@@ -37,13 +40,16 @@ export function ContactPicker({ value, onChange }) {
     return (
         <>
             <View style={ styles.contactRow }>
-                <Text style={ styles.contactLabel }>ask contact for details</Text>
+                <Text style={[styles.contactLabel, {color: theme.ContactPickerLabel}]}>ask contact for details</Text>
                 <View style={{ transform: [{ scale: 0.8 }] }}>
                     <Switch
                         value={withContact}
                         onValueChange={handleSwitch}
-                        thumbColor={withContact ? "#4F8EF7" : "#fff"}
-                        trackColor={{ false: "#ccc", true: "#B3D2FF" }}
+                        thumbColor={withContact ? theme.SwitchThumbOn : theme.SwitchThumbOff}
+                        trackColor={{
+                            false: theme.SwitchTrackOff,
+                            true: theme.SwitchTrackOn,
+                        }}
                     />
                 </View>
             </View>
@@ -51,8 +57,12 @@ export function ContactPicker({ value, onChange }) {
             {withContact && (
                 <View style={{ alignItems: 'center', width: '100%' }}>
                     <TouchableOpacity onPress={loadContacts}>
-                        <Text style={ styles.contactText }>
-                            {selectedContact ? selectedContact.name : "Choose contact"}
+                        <Text style={[styles.contactText, {
+                            color: theme.ContactPickerTextColor,
+                            backgroundColor: theme.ContactPickerBackgroundColor,
+                            shadowColor: theme.ContactPickerShadowColor,
+                        }]}>
+                            {selectedContact ? selectedContact.name : "choose contact"}
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -106,22 +116,18 @@ const styles = StyleSheet.create({
     },
     contactLabel: {
         fontSize: 20,
-        color: "#222",
         marginRight: 15,
         fontFamily: 'Montserrat-Regular',
     },
     contactText: {
         fontSize: 18,
-        color: "#4F8EF7",
         fontWeight: '600',
-        backgroundColor: "#e7f0ff",
         borderRadius: 8,
         marginTop: 15,
         marginBottom: 10,
         paddingHorizontal: 5,
         paddingVertical: 5,
         overflow: "hidden",
-        shadowColor: "#4F8EF7",
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.1,
         shadowRadius: 2,

@@ -1,17 +1,20 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
+import {useTheme} from "../../theme/theme-context";
 
 export function ButtonAddNewTask({ onPress }) {
+    const { theme } = useTheme();
+
     return (
-        <View style={ styles.buttonContainer }>
+        <View style={[styles.buttonContainer, {shadowColor: theme.ButtonAddNewTaskShadowColor}]}>
             <TouchableOpacity onPress={onPress} activeOpacity={0.8} style={{width: '100%'}}>
                 <LinearGradient
-                    colors={['#4F8EF7', '#86B6F6']}
+                    colors={theme.ButtonAddNewTaskGradient}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 1 }}
                     style={ styles.button }
                 >
-                    <Text style={ styles.buttonText } numberOfLines={1} adjustsFontSizeToFit>
+                    <Text style={[styles.buttonText, {color: theme.ButtonSaveTaskTextColor}]} numberOfLines={1} adjustsFontSizeToFit>
                         add new task
                     </Text>
                 </LinearGradient>
@@ -26,21 +29,19 @@ const styles = StyleSheet.create({
         left: 20,
         right: 20,
         bottom: 20,
-        shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.23,
         shadowRadius: 2.62,
         elevation: 4,
     },
     button: {
-        width: '100%', // <-- Сюди!
+        width: '100%',
         paddingVertical: 10,
         borderRadius: 16,
         alignItems: 'center',
-        overflow: 'hidden', // <-- обов'язково!
+        overflow: 'hidden',
     },
     buttonText: {
-        color: '#fff',
         fontSize: 25,
         letterSpacing: 1,
         fontFamily: 'Montserrat-Regular'

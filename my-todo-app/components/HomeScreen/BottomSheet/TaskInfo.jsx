@@ -1,26 +1,27 @@
-import TimerIcon from "../../../assets/images/TimerIcon.svg";
+import TimerIcon from "../../../assets/images/IconTimer.svg";
 import { formatDate } from "../../../utils/formatDate";
-import MapPinIcon from "../../../assets/images/MapPinIcon.svg";
-import PhoneIcon from "../../../assets/images/PhoneIcon.svg";
-import PhotoIcon from "../../../assets/images/PhotoIcon.svg";
+import MapPinIcon from "../../../assets/images/IconMapPin.svg";
+import PhoneIcon from "../../../assets/images/IconPhone.svg";
+import PhotoIcon from "../../../assets/images/IconPhoto.svg";
 import { Text, View, StyleSheet, Image } from "react-native";
+import { useTheme } from "../../../theme/theme-context";
 
 export function TaskInfo({ selectedTask }) {
-    console.log(selectedTask);
+    const { theme } = useTheme();
 
     let info = [];
 
     if (selectedTask) {
         info = [
             {
-                icon: <TimerIcon />,
+                icon: <TimerIcon color={theme.IconColor}/>,
                 label: 'Deadline',
                 value: selectedTask.deadline
                     ? formatDate(selectedTask.deadline)
                     : 'Whenever you want !',
             },
             {
-                icon: <MapPinIcon />,
+                icon: <MapPinIcon color={theme.IconColor}/>,
                 label: 'Location',
                 value: selectedTask.location?.address
                     || (selectedTask.location
@@ -28,12 +29,12 @@ export function TaskInfo({ selectedTask }) {
                         : 'Anywhere !'),
             },
             {
-                icon: <PhoneIcon />,
+                icon: <PhoneIcon color={theme.IconColor}/>,
                 label: 'Contact',
                 value: selectedTask.contact?.name || 'Just you !',
             },
             {
-                icon: <PhotoIcon />,
+                icon: <PhotoIcon color={theme.IconColor}/>,
                 label: 'Photo',
                 value: selectedTask.photo ? (
                     <Image
@@ -50,8 +51,10 @@ export function TaskInfo({ selectedTask }) {
             {info.map((item, idx) => (
                 <View key={idx} style={ styles.row }>
                     {item.icon}
-                    <Text style={ styles.label }>{item.label}:</Text>
-                    <Text style={ styles.value } numberOfLines={3} ellipsizeMode="tail">
+                    <Text style={[styles.label, {color: theme.BottomSheetLabelColor}]}>
+                        {item.label}:
+                    </Text>
+                    <Text style={[styles.value, {color: theme.BottomSheetValueColor}]} numberOfLines={3} ellipsizeMode="tail">
                         {item.value}
                     </Text>
                 </View>
@@ -71,14 +74,12 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 20,
         fontWeight: "600",
-        color: "#222",
         minWidth: 90,
         textAlign: 'left',
         flexShrink: 0,
     },
     value: {
         fontSize: 19,
-        color: "#4F8EF7",
         flex: 1,
         fontFamily: 'Montserrat-Medium',
         flexWrap: 'wrap',

@@ -4,9 +4,12 @@ import MaskedView from '@react-native-masked-view/masked-view';
 import { LinearGradient } from 'expo-linear-gradient';
 import { TaskActionsIcons } from "./TaskActionsIcons";
 import { CopyIconButton } from "./CopyIconButton";
-import MoreIcon from "../../assets/images/MoreIcon.svg";
+import MoreIcon from "../../../assets/images/IconMore.svg";
+import {useTheme} from "../../../theme/theme-context";
 
 export function TaskList({tasks, completeTask, deleteTask, openSheet }) {
+    const { theme } = useTheme();
+
     return (
         <FlatList
             data={tasks}
@@ -17,10 +20,20 @@ export function TaskList({tasks, completeTask, deleteTask, openSheet }) {
                     exiting={FadeOutUp.duration(600)}
                 >
                     <View style={ styles.cardRow }>
-                        <View style={ styles.card }>
-                            <View style={ styles.indexWithText }>
-                                <Text style={ styles.index }>{index+1}.</Text>
-                                <Text style={ item.completed ? styles.completeText : styles.text }>
+                        <View style={[styles.card, {
+                            backgroundColor: theme.TaskListCardBackgroundColor,
+                            borderColor: theme.TaskListCardBorderColor,
+                            shadowColor: theme.TaskListCardShadowColor,
+                        }]}>
+                            <View style={ styles.indexTextCopy }>
+                                <Text style={[styles.index, {color: theme.TaskListIndexColor}]}>
+                                    {index+1}.
+                                </Text>
+                                <Text style={[item.completed ? styles.completeText : styles.text,{
+                                    color: item.completed
+                                        ? theme.TaskListCompleteTextColor
+                                        : theme.TaskListTextColor,
+                                }]}>
                                     {item.text}
                                     <CopyIconButton text={item.text}/>
                                 </Text>
@@ -31,7 +44,7 @@ export function TaskList({tasks, completeTask, deleteTask, openSheet }) {
                             />
                         </View>
                         <TouchableOpacity onPress={() => openSheet(item)}>
-                            <MoreIcon/>
+                            <MoreIcon color={ theme.IconColor }/>
                         </TouchableOpacity>
                     </View>
                 </Animated.View>
@@ -45,7 +58,7 @@ export function TaskList({tasks, completeTask, deleteTask, openSheet }) {
                     }
                 >
                     <LinearGradient
-                        colors={['#7F7FD5', '#86A8E7', '#91EAE4']}
+                        colors={theme.TaskListEmptyComponentGradient}
                         start={{ x: 1, y: 1 }}
                         end={{ x: 0, y: 0 }}
                         style={{ flex: 1 }}
@@ -72,12 +85,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: "center",
         justifyContent: 'space-between',
-        backgroundColor: "#fff",
         borderRadius: 12,
         borderWidth: 1,
-        borderColor: '#C3D1E7',
         padding: 12,
-        shadowColor: "#000",
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.13,
         shadowRadius: 4,
@@ -85,31 +95,29 @@ const styles = StyleSheet.create({
     },
     index: {
         fontSize: 20,
-        color: '#4F8EF7',
         marginRight: 12,
         fontWeight: 'bold'
     },
     text: {
         fontSize: 20,
-        color: "#222",
         flexShrink: 1,
         fontFamily: 'Montserrat-SemiBold'
     },
     completeText: {
         fontSize: 20,
-        color: "#222",
         flexShrink: 1,
         fontFamily: 'Montserrat-MediumItalic',
         opacity: 0.5,
         textDecorationLine: 'line-through',
 
     },
-    indexWithText: {
+    indexTextCopy: {
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center'
     },
     emptyList: {
+        letterSpacing: 1,
         marginTop: 200,
         fontSize: 32,
         textAlign: 'center',

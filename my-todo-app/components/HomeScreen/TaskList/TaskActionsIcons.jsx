@@ -1,6 +1,6 @@
 import { StyleSheet, TouchableOpacity, View } from "react-native";
-import IconComplete from "../../assets/images/IconComplete.svg";
-import IconDelete from "../../assets/images/IconDelete.svg";
+import IconComplete from "../../../assets/images/IconComplete.svg";
+import IconDelete from "../../../assets/images/IconDelete.svg";
 
 export function TaskActionsIcons({ onComplete, onDelete }) {
     return (
