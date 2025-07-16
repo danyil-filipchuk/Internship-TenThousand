@@ -10,7 +10,7 @@ import { useTheme } from "../theme/theme-context";
 export function HomeScreen({ navigation, tasks, deleteTask, completeTask }) {
     const modalizeRef = useRef(null);
     const [selectedTask, setSelectedTask] = useState(null);
-    const { themeName } = useTheme();
+    const { theme } = useTheme();
 
     const openSheet = (task) => {
         setSelectedTask(task);
@@ -27,12 +27,8 @@ export function HomeScreen({ navigation, tasks, deleteTask, completeTask }) {
 
     return (
         <LinearGradient
-            colors={
-                themeName === 'light'
-                    ? ['#e0ecff', '#f7faff', '#fff']
-                    : ['#181C22', '#232A3D', '#232A3D']
-            }
             style={{ flex: 1 }}
+            colors={theme.LinearGradientBackgroundColor}
         >
             <SafeAreaView style={{ flex: 1 }}>
                 <NoInternetBanner/>

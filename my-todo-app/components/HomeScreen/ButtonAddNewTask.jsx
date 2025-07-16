@@ -14,7 +14,7 @@ export function ButtonAddNewTask({ onPress }) {
                     end={{ x: 1, y: 1 }}
                     style={ styles.button }
                 >
-                    <Text style={[styles.buttonText, {color: theme.ButtonSaveTaskTextColor}]} numberOfLines={1} adjustsFontSizeToFit>
+                    <Text style={[styles.buttonText, {color: theme.ButtonAddNewTaskTextColor}]} numberOfLines={1} adjustsFontSizeToFit>
                         add new task
                     </Text>
                 </LinearGradient>
@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 25,
-        letterSpacing: 1,
         fontFamily: 'Montserrat-Regular'
     },
 });

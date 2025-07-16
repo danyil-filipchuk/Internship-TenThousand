@@ -4,6 +4,7 @@ const themes = {
     light: {
         HeaderTitleColor: '#222',
         HeaderBackgroundColor: '#f4f8fd',
+        LinearGradientBackgroundColor: ['#e0ecff', '#f7faff', '#fff'],
 
         SwitchThumbOn: '#4F8EF7',
         SwitchThumbOff: '#fff',
@@ -58,8 +59,8 @@ const themes = {
         AddTaskScreenShadowColor: '#000',
         AddTaskScreenTitleColor: '#222',
 
-        ButtonAddNewTaskGradient: ['#4F8EF7', '#86B6F6'],
-        ButtonAddNewTaskShadowColor: '#000',
+        ButtonAddNewTaskGradient: ['#407BEA', '#539DFF'],
+        ButtonAddNewTaskShadowColor: '#B6C3DB',
         ButtonAddNewTaskTextColor: '#fff',
 
         TaskListCardBackgroundColor: '#fff',
@@ -68,7 +69,7 @@ const themes = {
         TaskListIndexColor: '#4F8EF7',
         TaskListTextColor: '#222',
         TaskListCompleteTextColor: '#222',
-        TaskListEmptyComponentGradient: ['#7F7FD5', '#86A8E7', '#91EAE4'],
+        TaskListEmptyComponentGradient: ['#4961b8', '#324d92', '#232f56'],
 
         BottomSheetBorderColor: "#E6ECF9",
         BottomSheetShadowColor: "#4F8EF7",
@@ -87,6 +88,7 @@ const themes = {
     dark: {
         HeaderTitleColor: '#fafaff',
         HeaderBackgroundColor: '#181B23',
+        LinearGradientBackgroundColor: ['#181C22', '#232A3D', '#232A3D'],
 
         SwitchThumbOn: '#90B4FE',
         SwitchThumbOff: '#fff',
@@ -142,7 +144,7 @@ const themes = {
         AddTaskScreenTitleColor: '#fafaff',
 
         ButtonAddNewTaskGradient: ['#2941AB', '#5176C6'],
-        ButtonAddNewTaskShadowColor: '#233878',
+        ButtonAddNewTaskShadowColor: '#1F2847',
         ButtonAddNewTaskTextColor: '#fff',
 
         TaskListCardBackgroundColor: 'rgba(255,255,255,0.17)',

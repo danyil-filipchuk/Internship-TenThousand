@@ -9,12 +9,8 @@ export function SettingsScreen({ navigation }) {
 
     return (
         <LinearGradient
-            colors={
-                themeName === 'light'
-                    ? ['#e0ecff', '#f7faff', '#fff']
-                    : ['#181C22', '#232A3D', '#232A3D']
-            }
             style={{ flex: 1 }}
+            colors={theme.LinearGradientBackgroundColor}
         >
             <SafeAreaView style={ styles.container }>
                 <View style={ styles.bottomBlocks }>

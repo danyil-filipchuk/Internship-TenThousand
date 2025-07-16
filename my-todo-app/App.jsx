@@ -83,8 +83,8 @@ function AppContent() {
           backgroundColor: theme.HeaderBackgroundColor,}}
       >
           <ThemedStatusBar />
-          <NavigationContainer>
 
+          <NavigationContainer>
               <Stack.Navigator
                   initialRouteName="Home"
                   screenOptions={{
@@ -148,7 +148,6 @@ function AppContent() {
                   />
 
               </Stack.Navigator>
-
           </NavigationContainer>
 
           <FlashMessage position='center' />

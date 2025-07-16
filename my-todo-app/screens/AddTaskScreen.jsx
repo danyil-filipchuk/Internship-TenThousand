@@ -18,7 +18,7 @@ export function AddTaskScreen({navigation, addTask}) {
     const [selectedContact, setSelectedContact] = useState(null);
     const [selectedLocation, setSelectedLocation] = useState(null);
 
-    const { theme, themeName } = useTheme();
+    const { theme } = useTheme();
 
     const handleSave = () => {
         if (text.trim()) {
@@ -45,12 +45,8 @@ export function AddTaskScreen({navigation, addTask}) {
 
     return (
         <LinearGradient
-            colors={
-                themeName === 'light'
-                    ? ['#e0ecff', '#f7faff', '#fff']
-                    : ['#181C22', '#232A3D', '#232A3D']
-            }
             style={{ flex: 1 }}
+            colors={theme.LinearGradientBackgroundColor}
         >
             <SafeAreaView style={ styles.container }>
                 <View style={[styles.card, {
