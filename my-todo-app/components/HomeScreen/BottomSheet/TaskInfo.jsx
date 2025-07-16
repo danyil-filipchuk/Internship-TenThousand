@@ -5,9 +5,11 @@ import PhoneIcon from "../../../assets/images/IconPhone.svg";
 import PhotoIcon from "../../../assets/images/IconPhoto.svg";
 import { Text, View, StyleSheet, Image } from "react-native";
 import { useTheme } from "../../../theme/theme-context";
+import { useTranslation } from 'react-i18next';
 
 export function TaskInfo({ selectedTask }) {
     const { theme } = useTheme();
+    const { t } = useTranslation();
 
     let info = [];
 
@@ -15,33 +17,33 @@ export function TaskInfo({ selectedTask }) {
         info = [
             {
                 icon: <TimerIcon color={theme.IconColor}/>,
-                label: 'Deadline',
+                label: t('Deadline'),
                 value: selectedTask.deadline
                     ? formatDate(selectedTask.deadline)
-                    : 'Whenever you want !',
+                    : t('WheneverYouWant!'),
             },
             {
                 icon: <MapPinIcon color={theme.IconColor}/>,
-                label: 'Location',
+                label: t('Location'),
                 value: selectedTask.location?.address
                     || (selectedTask.location
                         ? `${selectedTask.location.latitude?.toFixed(5)}, ${selectedTask.location.longitude?.toFixed(5)}`
-                        : 'Anywhere !'),
+                        : t('Anywhere!')),
             },
             {
                 icon: <PhoneIcon color={theme.IconColor}/>,
-                label: 'Contact',
-                value: selectedTask.contact?.name || 'Just you !',
+                label: t('Contact'),
+                value: selectedTask.contact?.name || t('JustYou!'),
             },
             {
                 icon: <PhotoIcon color={theme.IconColor}/>,
-                label: 'Photo',
+                label: t('Photo'),
                 value: selectedTask.photo ? (
                     <Image
                         source={{ uri: selectedTask.photo }}
                         style={ styles.photo }
                     />
-                ) : 'No photo',
+                ) : t('NoPhoto'),
             },
         ];
     }
@@ -76,6 +78,7 @@ const styles = StyleSheet.create({
         fontWeight: "600",
         minWidth: 90,
         textAlign: 'left',
+        lineHeight: 22,
         flexShrink: 0,
     },
     value: {

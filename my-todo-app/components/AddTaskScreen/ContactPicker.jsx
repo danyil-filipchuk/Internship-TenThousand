@@ -3,6 +3,7 @@ import { useState } from "react";
 import { showMessage } from "react-native-flash-message";
 import * as Contacts from 'expo-contacts';
 import {useTheme} from "../../theme/theme-context";
+import { useTranslation } from 'react-i18next';
 
 export function ContactPicker({ value, onChange }) {
 
@@ -12,6 +13,7 @@ export function ContactPicker({ value, onChange }) {
     const [modalVisible, setModalVisible] = useState(false);
 
     const { theme } = useTheme();
+    const { t } = useTranslation();
 
     const loadContacts = async () => {
         const { status } = await Contacts.requestPermissionsAsync();
@@ -40,7 +42,7 @@ export function ContactPicker({ value, onChange }) {
     return (
         <>
             <View style={ styles.contactRow }>
-                <Text style={[styles.contactLabel, {color: theme.ContactPickerLabel}]}>ask contact for details</Text>
+                <Text style={[styles.contactLabel, {color: theme.ContactPickerLabel}]}>{t('contactForHelp')}</Text>
                 <View style={{ transform: [{ scale: 0.8 }] }}>
                     <Switch
                         value={withContact}
@@ -62,7 +64,7 @@ export function ContactPicker({ value, onChange }) {
                             backgroundColor: theme.ContactPickerBackgroundColor,
                             shadowColor: theme.ContactPickerShadowColor,
                         }]}>
-                            {selectedContact ? selectedContact.name : "choose contact"}
+                            {selectedContact ? selectedContact.name : t('chooseContact')}
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -76,7 +78,7 @@ export function ContactPicker({ value, onChange }) {
             >
                 <View style={ styles.modalOverlay }>
                     <View style={ styles.modalContent }>
-                        <Text style={{ fontWeight: 'bold', fontSize: 20, marginBottom: 10 }}>Choose contact</Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 20, marginBottom: 10 }}>{t('ContactList')}</Text>
                         <FlatList
                             data={allContacts}
                             keyExtractor={item => item.id}
@@ -97,7 +99,7 @@ export function ContactPicker({ value, onChange }) {
                             style={{ maxHeight: 300 }}
                         />
                         <TouchableOpacity onPress={() => setModalVisible(false)} style={{ marginTop: 15 }}>
-                            <Text style={{ color: '#4F8EF7', textAlign: 'center', fontSize: 16 }}>Cancel</Text>
+                            <Text style={{ color: '#4F8EF7', textAlign: 'center', fontSize: 16 }}>{t('Cancel')}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

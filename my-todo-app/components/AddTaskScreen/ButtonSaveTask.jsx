@@ -1,8 +1,10 @@
 import {StyleSheet, Text, TouchableOpacity} from "react-native";
 import { useTheme } from "../../theme/theme-context"
+import { useTranslation } from 'react-i18next';
 
 export function ButtonSaveTask({ onPress }) {
     const { theme } = useTheme();
+    const { t } = useTranslation();
 
     return (
         <TouchableOpacity style={[styles.button, {
@@ -11,7 +13,9 @@ export function ButtonSaveTask({ onPress }) {
         }]}
                           onPress={onPress}
         >
-            <Text style={[styles.buttonText, {color: theme.ButtonSaveTaskTextColor}]}>save task</Text>
+            <Text style={[styles.buttonText, {color: theme.ButtonSaveTaskTextColor}]}>
+                {t('saveTask')}
+            </Text>
         </TouchableOpacity>
     )
 }

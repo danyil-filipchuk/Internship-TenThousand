@@ -1,13 +1,15 @@
 import {StyleSheet, TextInput} from "react-native";
 import {useTheme} from "../../theme/theme-context";
+import { useTranslation } from 'react-i18next';
 
 export function TaskInput( props ) {
     const { theme } = useTheme();
+    const { t } = useTranslation();
 
     return (
         <TextInput
             {...props}
-            placeholder='enter task...'
+            placeholder={t('enterTask...')}
             autoFocus
             returnKeyType='done'
             placeholderTextColor={theme.TaskInputPlaceholderColor}

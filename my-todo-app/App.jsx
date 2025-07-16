@@ -15,6 +15,7 @@ import FlashMessage, { showMessage } from "react-native-flash-message";
 import SettingsIcon from './assets/images/IconSettings.svg';
 import { ThemeProvider, useTheme } from './theme/theme-context';
 import { ThemedStatusBar } from "./ThemedStatusBar";
+import "./localization/localization";
 
 const Stack = createNativeStackNavigator();
 

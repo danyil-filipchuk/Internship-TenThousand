@@ -3,10 +3,11 @@ import { StyleSheet, SafeAreaView } from 'react-native';
 import { WebView } from 'react-native-webview';
 
 export function ProjectWebView() {
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <WebView
-                source={{ uri: 'https://github.com/danyil-filipchuk/Internship-TenThousand/tree/main/my-todo-app' }} // тут вставляєш своє посилання
+                source={{ uri: 'https://github.com/danyil-filipchuk/Internship-TenThousand/tree/main/my-todo-app' }}
                 style={ styles.webView }
                 startInLoadingState={true}
             />

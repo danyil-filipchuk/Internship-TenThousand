@@ -3,9 +3,11 @@ import { Modalize } from "react-native-modalize";
 import { ShareTask } from "./ShareTask";
 import {TaskInfo} from "./TaskInfo";
 import { useTheme } from "../../../theme/theme-context";
+import { useTranslation } from 'react-i18next';
 
 export function BottomSheet({ modalizeRef, selectedTask, handleCloseSheet, stopModalize }) {
     const { theme } = useTheme();
+    const { t } = useTranslation();
 
     return (
         <Modalize
@@ -29,7 +31,7 @@ export function BottomSheet({ modalizeRef, selectedTask, handleCloseSheet, stopM
                         shadowColor: theme.BottomSheetCloseShadowColor,
                         backgroundColor: theme.BottomSheetCloseBackgroundColor,
                     }]}>
-                        Close
+                        {t('Close')}
                     </Text>
                 </TouchableOpacity>
 

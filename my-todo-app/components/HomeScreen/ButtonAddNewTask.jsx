@@ -1,9 +1,11 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import {useTheme} from "../../theme/theme-context";
+import { useTranslation } from 'react-i18next';
 
 export function ButtonAddNewTask({ onPress }) {
     const { theme } = useTheme();
+    const { t } = useTranslation();
 
     return (
         <View style={[styles.buttonContainer, {shadowColor: theme.ButtonAddNewTaskShadowColor}]}>
@@ -15,7 +17,7 @@ export function ButtonAddNewTask({ onPress }) {
                     style={ styles.button }
                 >
                     <Text style={[styles.buttonText, {color: theme.ButtonAddNewTaskTextColor}]} numberOfLines={1} adjustsFontSizeToFit>
-                        add new task
+                        {t('addNewTask')}
                     </Text>
                 </LinearGradient>
             </TouchableOpacity>

@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import * as Device from 'expo-device';
 import { SectionList, StyleSheet, Text, View }  from "react-native";
 import { useTheme } from "../../theme/theme-context"
+import { useTranslation } from 'react-i18next';
 
 export function DeviceInfo() {
     const [sections, setSections] = useState([]);
     const { theme } = useTheme();
+    const { t } = useTranslation();
 
     useEffect(() => {
         (async () => {
@@ -23,7 +25,7 @@ export function DeviceInfo() {
 
             setSections([
                 {
-                    title: 'Device Info',
+                    title: t('DeviceInfo'),
                     data: [
                         {label: 'Brand', value: deviceInfo.brand},
                         {label: 'Model', value: deviceInfo.modelName},
@@ -32,7 +34,7 @@ export function DeviceInfo() {
                     ]
                 },
                 {
-                    title: 'System Info',
+                    title: t('SystemInfo'),
                     data: [
                         { label: 'OS', value: `${deviceInfo.osName} ${deviceInfo.osVersion}` },
                         { label: 'Is real device', value: deviceInfo.isDevice },
@@ -51,7 +53,9 @@ export function DeviceInfo() {
                 keyExtractor={( item, index ) => index.toString()}
                 renderSectionHeader={({ section: { title } }) => (
                     <View style={ styles.sectionBlock }>
-                        <Text style={[styles.header, {color: theme.DeviceInfoHeaderColor}]}>{title}</Text>
+                        <Text style={[styles.header, {color: theme.DeviceInfoHeaderColor}]}>
+                            {title}
+                        </Text>
                     </View>
                 )}
                 renderItem={({ item, section, index }) => (

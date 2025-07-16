@@ -3,6 +3,7 @@ import { Switch, Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { formatDate } from "../../utils/formatDate";
 import {useTheme} from "../../theme/theme-context";
+import { useTranslation } from 'react-i18next';
 
 export function DeadlinePicker({ value, onChange }) {
 
@@ -11,6 +12,7 @@ export function DeadlinePicker({ value, onChange }) {
     const [pickerVisible, setPickerVisible] = useState(false);
 
     const { theme } = useTheme();
+    const { t } = useTranslation();
 
     const confirmDate = (selectedDate) => {
         setPickerVisible(false);
@@ -27,7 +29,7 @@ export function DeadlinePicker({ value, onChange }) {
 
     return (
         <View style={ styles.deadlineRow }>
-            <Text style={[styles.deadlineLabel, {color: theme.DeadlinePickerLabel}]}>add deadline</Text>
+            <Text style={[styles.deadlineLabel, {color: theme.DeadlinePickerLabel}]}>{t('addDeadline')}</Text>
             <View style={{ transform: [{ scale: 0.8 }] }}>
                 <Switch
                     value={withDeadline}

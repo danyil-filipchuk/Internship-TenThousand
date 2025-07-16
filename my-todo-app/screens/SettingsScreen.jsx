@@ -3,9 +3,12 @@ import { useTheme } from "../theme/theme-context";
 import { SafeAreaView, TouchableOpacity, StyleSheet, Text, View, Switch } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { DeviceInfo } from "../components/SettingsScreen/DeviceInfo";
+import i18n from '../localization/localization';
+import { useTranslation } from 'react-i18next';
 
 export function SettingsScreen({ navigation }) {
     const { theme, themeName, toggleTheme } = useTheme();
+    const { t } = useTranslation();
 
     return (
         <LinearGradient
@@ -14,6 +17,24 @@ export function SettingsScreen({ navigation }) {
         >
             <SafeAreaView style={ styles.container }>
                 <View style={ styles.bottomBlocks }>
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
+                        <Text style={{ fontSize: 18, marginRight: 10 }}>Language:</Text>
+                        <TouchableOpacity onPress={() => i18n.changeLanguage('en')}>
+                            <Text style={{
+                                fontWeight: i18n.language === 'en' ? 'bold' : 'normal',
+                                color: i18n.language === 'en' ? '#4F8EF7' : '#888',
+                                marginRight: 16
+                            }}>EN</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => i18n.changeLanguage('ua')}>
+                            <Text style={{
+                                fontWeight: i18n.language === 'ua' ? 'bold' : 'normal',
+                                color: i18n.language === 'ua' ? '#4F8EF7' : '#888'
+                            }}>UA</Text>
+                        </TouchableOpacity>
+                    </View>
+
 
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 80 }}>
                         <Text style={{ fontSize: 18, marginRight: 10 }}>
@@ -31,14 +52,14 @@ export function SettingsScreen({ navigation }) {
                         shadowColor: theme.WebViewBlockShadowColor,
                     }]}>
                         <Text style={[styles.webViewText, {color: theme.WebViewTextColor}]}>
-                            Detailed code of this project
+                            {t('DetailedCodeOfThisProject')}
                         </Text>
                         <TouchableOpacity
                             style={[styles.webViewButton, {backgroundColor: theme.WebViewButtonBackgroundColor}]}
                             onPress={() => navigation.navigate('ProjectWebView')}
                         >
                             <Text style={[styles.webViewButtonText, {color: theme.WebViewButtonTextColor}]}>
-                                View on GitHub
+                                {t('ViewOnGitHub')}
                             </Text>
                         </TouchableOpacity>
                     </View>

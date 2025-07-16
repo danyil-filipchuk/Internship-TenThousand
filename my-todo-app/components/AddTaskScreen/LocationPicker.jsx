@@ -4,6 +4,7 @@ import MapView, { Marker } from 'react-native-maps';
 import { showMessage } from "react-native-flash-message";
 import * as Location from 'expo-location';
 import {useTheme} from "../../theme/theme-context";
+import { useTranslation } from 'react-i18next';
 
 export function LocationPicker({ value, onChange }) {
     const [withLocation, setWithLocation] = useState(!!value);
@@ -13,6 +14,7 @@ export function LocationPicker({ value, onChange }) {
     const [loading, setLoading] = useState(false);
 
     const { theme } = useTheme();
+    const { t } = useTranslation();
 
     const fetchAddress = async (coords) => {
         setLoading(true);
@@ -103,7 +105,9 @@ export function LocationPicker({ value, onChange }) {
     return (
         <>
             <View style={ styles.locationRow }>
-                <Text style={[styles.locationLabel, {color: theme.LocationPickerLabel}]}>add location</Text>
+                <Text style={[styles.locationLabel, {color: theme.LocationPickerLabel}]}>
+                    {t('addLocation')}
+                </Text>
                 <View style={{ transform: [{ scale: 0.8 }] }}>
                     <Switch
                         value={withLocation}
@@ -134,7 +138,7 @@ export function LocationPicker({ value, onChange }) {
                                     ? address
                                     : location
                                         ? `${location.latitude.toFixed(5)}, ${location.longitude.toFixed(5)}`
-                                        : "choose location"
+                                        : t('chooseLocation')
                             }
                         </Text>
                     </TouchableOpacity>
@@ -148,7 +152,9 @@ export function LocationPicker({ value, onChange }) {
             >
                 <View style={ styles.modalOverlay }>
                     <View style={ styles.modalContent }>
-                        <Text style={{ fontWeight: 'bold', fontSize: 22, marginBottom: 10 }}>Pick location</Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 22, marginBottom: 10 }}>
+                            {t('PickLocation')}
+                        </Text>
                         <MapView
                             style={{ width: "100%", height: 600, borderRadius: 8 }}
                             initialRegion={{
@@ -164,7 +170,9 @@ export function LocationPicker({ value, onChange }) {
                             )}
                         </MapView>
                         <TouchableOpacity onPress={() => setModalVisible(false)} style={{ marginTop: 12 }}>
-                            <Text style={{ color: '#4F8EF7', fontSize: 22 }}>Cancel</Text>
+                            <Text style={{ color: '#4F8EF7', fontSize: 22 }}>
+                                {t('Cancel')}
+                            </Text>
                         </TouchableOpacity>
                     </View>
                 </View>

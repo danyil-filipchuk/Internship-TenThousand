@@ -2,9 +2,11 @@ import { Share, Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import ShareIcon from "../../../assets/images/IconShare.svg";
 import { formatDate } from "../../../utils/formatDate";
 import { useTheme } from "../../../theme/theme-context";
+import { useTranslation } from 'react-i18next';
 
 export function ShareTask( {selectedTask}) {
     const { theme } = useTheme();
+    const { t } = useTranslation();
 
     return (
         <TouchableOpacity
@@ -22,7 +24,7 @@ export function ShareTask( {selectedTask}) {
             <View style={ styles.shareRow }>
                 <ShareIcon color={ theme.IconColor }/>
                 <Text style={[styles.shareText, {color: theme.BottomSheetShareTaskTextColor}]}>
-                    Share Task
+                    {t('ShareTask')}
                 </Text>
             </View>
         </TouchableOpacity>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Switch, Text, View, StyleSheet } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
 import { useTheme } from "../../theme/theme-context"
+import { useTranslation } from 'react-i18next';
 
 // для камери
 // ImagePicker.launchCameraAsync
@@ -9,6 +10,7 @@ import { useTheme } from "../../theme/theme-context"
 export function PhotoPicker({ value, onChange }) {
     const [withPhoto, setWithPhoto] = useState(!!value);
     const { theme } = useTheme();
+    const { t } = useTranslation();
 
     const pickImage = async () => {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -42,7 +44,7 @@ export function PhotoPicker({ value, onChange }) {
 
     return (
         <View style={ styles.photoRow }>
-            <Text style={[styles.photoLabel, {color: theme.PhotoPickerLabel}]}>add photo</Text>
+            <Text style={[styles.photoLabel, {color: theme.PhotoPickerLabel}]}>{t('addPhoto')}</Text>
             <View style={{ transform: [{ scale: 0.8 }] }}>
                 <Switch
                     style={ styles.switch }
@@ -62,7 +64,7 @@ export function PhotoPicker({ value, onChange }) {
                     shadowColor: theme.PhotoPickerBlockShadowColor,
                 }]}>
                     <Text style={[styles.chosenText, {color: theme.PhotoPickerTextColor}]}>
-                        photo chosen
+                        {t('photoChosen')}
                     </Text>
                     <Text style={styles.checkMark}>✅</Text>
                 </View>
