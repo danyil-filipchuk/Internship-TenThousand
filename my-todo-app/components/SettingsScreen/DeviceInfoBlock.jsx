@@ -4,7 +4,7 @@ import { SectionList, StyleSheet, Text, View }  from "react-native";
 import { useTheme } from "../../theme/theme-context"
 import { useTranslation } from 'react-i18next';
 
-export function DeviceInfo() {
+export function DeviceInfoBlock() {
     const [sections, setSections] = useState([]);
     const { theme } = useTheme();
     const { t } = useTranslation();
@@ -44,16 +44,19 @@ export function DeviceInfo() {
                 },
             ]);
         })();
-    }, []);
+    }, [t]);
 
     return (
-        <View style={ styles.wrapper }>
+        <View style={[styles.deviceInfoBlock, {
+            borderColor: theme.SettingsScreenCardsBorderColor,
+            shadowColor: theme.SettingsScreenCardsShadowColor,}
+        ]}>
             <SectionList
                 sections={sections}
                 keyExtractor={( item, index ) => index.toString()}
                 renderSectionHeader={({ section: { title } }) => (
                     <View style={ styles.sectionBlock }>
-                        <Text style={[styles.header, {color: theme.DeviceInfoHeaderColor}]}>
+                        <Text style={[styles.header, {color: theme.SettingsScreenCardsLabelColor}]}>
                             {title}
                         </Text>
                     </View>
@@ -64,7 +67,7 @@ export function DeviceInfo() {
                         index === 0 ? styles.firstInfoBlock : {},
                         index === section.data.length - 1 ? styles.lastInfoBlock : {},
                     ]}>
-                        <Text style={[styles.label, {color: theme.DeviceInfoHLabelColor}]}>{item.label}:</Text>
+                        <Text style={[styles.label, {color: theme.DeviceInfoLabelColor}]}>{item.label}:</Text>
                         <Text style={[styles.value, {color: theme.DeviceInfoValueColor}]}>{item.value}</Text>
                     </View>
                 )}
@@ -75,10 +78,16 @@ export function DeviceInfo() {
 }
 
 const styles = StyleSheet.create({
-    wrapper: {
-        width: '100%',
-        alignItems: 'center',
-        marginTop: 'auto',
+    deviceInfoBlock: {
+        width: '94%',
+        borderRadius: 14,
+        padding: 18,
+        borderWidth: 1.5,
+        alignSelf: 'center',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.10,
+        shadowRadius: 8,
+        elevation: 3,
     },
     sectionBlock: {
         width: 320,
@@ -98,7 +107,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 19,
-        minWidth: 120,
+        minWidth: 130,
         fontFamily: 'Montserrat-Regular',
     },
     value: {

@@ -24,5 +24,10 @@
   "DeviceInfo": "Device Info",
   "SystemInfo": "System Info",
   "DetailedCodeOfThisProject": "Detailed code of this project",
-  "ViewOnGitHub": "View on GitHub"
+  "ViewOnGitHub": "View on GitHub",
+  "myTasks": "my tasks",
+  "settings": "settings",
+  "Language": "Language",
+  "LightTheme": "Light Theme",
+  "DarkTheme": "Dark Theme"
 }

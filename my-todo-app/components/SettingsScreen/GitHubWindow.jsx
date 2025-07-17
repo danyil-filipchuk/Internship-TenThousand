@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, SafeAreaView } from 'react-native';
 import { WebView } from 'react-native-webview';
 
-export function ProjectWebView() {
+export function GitHubWindow() {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>

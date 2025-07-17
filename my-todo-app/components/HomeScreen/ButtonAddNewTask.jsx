@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     },
     buttonText: {
-        fontSize: 25,
+        fontSize: 27,
         fontFamily: 'Montserrat-Regular'
     },
 });

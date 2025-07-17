@@ -1,5 +1,5 @@
 {
-  "addNewTask": "додати нове завдання",
+  "addNewTask": "нове завдання",
   "Deadline": "Крайній термін",
   "Location": "Розташування",
   "Contact": "Контакт",
@@ -13,16 +13,21 @@
   "saveTask": "зберегти завдання",
   "addPhoto": "додати фото",
   "photoChosen": "фото вибрано",
-  "addDeadline": "додати крайній термін",
+  "addDeadline": "додати дедлайн",
   "addLocation": "додати розташування",
   "chooseLocation": "вибрати розташування",
   "PickLocation": "Вибрати розташування",
-  "contactForHelp": "контакт для допомоги",
+  "contactForHelp": "додати контакт для уточнень",
   "chooseContact": "вибрати контакт",
   "ContactList": "Список Контактів",
   "enterTask...": "введіть завдання...",
   "DeviceInfo": "Пристрій",
   "SystemInfo": "Система",
   "DetailedCodeOfThisProject": "Детальний код проєкту",
-  "ViewOnGitHub": "Дивитись на GitHub"
+  "ViewOnGitHub": "Дивитись на GitHub",
+  "myTasks": "мої завдання",
+  "settings": "налаштування",
+  "Language": "Мова",
+  "LightTheme": "Світла Тема",
+  "DarkTheme": "Темна Тема"
 }

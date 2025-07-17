@@ -42,7 +42,9 @@ export function ContactPicker({ value, onChange }) {
     return (
         <>
             <View style={ styles.contactRow }>
-                <Text style={[styles.contactLabel, {color: theme.ContactPickerLabel}]}>{t('contactForHelp')}</Text>
+                <Text style={[styles.contactLabel, {color: theme.ContactPickerLabel}]}>
+                    {t('contactForHelp')}
+                </Text>
                 <View style={{ transform: [{ scale: 0.8 }] }}>
                     <Switch
                         value={withContact}
@@ -118,7 +120,7 @@ const styles = StyleSheet.create({
     },
     contactLabel: {
         fontSize: 20,
-        marginRight: 15,
+        marginRight: 5,
         fontFamily: 'Montserrat-Regular',
     },
     contactText: {

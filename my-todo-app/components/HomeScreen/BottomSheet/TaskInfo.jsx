@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 export function TaskInfo({ selectedTask }) {
     const { theme } = useTheme();
     const { t } = useTranslation();
+    console.log(selectedTask);
 
     let info = [];
 

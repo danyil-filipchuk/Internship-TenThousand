@@ -8,7 +8,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { HomeScreen } from './screens/HomeScreen';
 import { AddTaskScreen } from './screens/AddTaskScreen';
 import { SettingsScreen } from "./screens/SettingsScreen";
-import { ProjectWebView } from './components/SettingsScreen/WebView';
+import { GitHubWindow } from './components/SettingsScreen/GitHubWindow';
+import { OnboardingScreen } from './screens/OnboardingScreen';
 import { useState, useEffect } from "react";
 import { loadTasksFromStorage, saveTasksToStorage } from './utils/storage';
 import FlashMessage, { showMessage } from "react-native-flash-message";
@@ -16,6 +17,7 @@ import SettingsIcon from './assets/images/IconSettings.svg';
 import { ThemeProvider, useTheme } from './theme/theme-context';
 import { ThemedStatusBar } from "./ThemedStatusBar";
 import "./localization/localization";
+import { useTranslation } from 'react-i18next';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +26,7 @@ function AppContent() {
     const [fontsLoaded] = useFonts(fonts);
 
     const { theme } = useTheme();
+    const { t } = useTranslation();
 
     useEffect(() => {
         (async () => {
@@ -106,7 +109,7 @@ function AppContent() {
                   <Stack.Screen
                       name='Home'
                       options={({ navigation }) => ({
-                          title: 'my tasks',
+                          title: t('myTasks'),
                           headerRight: () => (
                               <SettingsIcon
                                   style={{marginRight: -10, marginBottom:10}}
@@ -126,7 +129,7 @@ function AppContent() {
                   <Stack.Screen
                       name='AddTask'
                       options={{
-                          title: 'add new task',
+                          title: t('addNewTask'),
                       }}
                   >
                       {props => <AddTaskScreen {...props} addTask={addTask} />}
@@ -136,15 +139,23 @@ function AppContent() {
                       name='Settings'
                       component={SettingsScreen}
                       options={{
-                          title: 'settings',
+                          title: t('settings'),
                       }}
                   />
 
                   <Stack.Screen
-                      name='ProjectWebView'
-                      component={ProjectWebView}
+                      name='GitHubWindow'
+                      component={GitHubWindow}
                       options={{
                           title: 'code of project',
+                      }}
+                  />
+
+                  <Stack.Screen
+                      name='Onboarding'
+                      component={OnboardingScreen}
+                      options={{
+                          title: 'onboarding',
                       }}
                   />
 

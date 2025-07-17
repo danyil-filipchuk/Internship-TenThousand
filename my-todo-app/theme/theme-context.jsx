@@ -11,17 +11,13 @@ const themes = {
         SwitchTrackOn: '#B3D2FF',
         SwitchTrackOff: '#ccc',
 
-        DeviceInfoHeaderColor: '#222',
-        DeviceInfoHLabelColor: '#5D6A8A',
-        DeviceInfoValueColor: '#242A4D',
-        DeviceInfoBorderColor: '#232A3D',
-        DeviceInfoBackgroundColor: 'rgba(255,255,255,0.15)',
-        DeviceInfoShadowColor: '#6E9DF7',
+        SettingsScreenCardsBorderColor: '#232A3D',
+        SettingsScreenCardsShadowColor: '#6E9DF7',
+        SettingsScreenCardsLabelColor: '#222',
 
-        WebViewBlockBorderColor: '#232A3D',
-        WebViewBlockBackgroundColor: 'rgba(255,255,255,0.15)',
-        WebViewBlockShadowColor: "#6E9DF7",
-        WebViewTextColor:'#222',
+        DeviceInfoLabelColor: '#5D6A8A',
+        DeviceInfoValueColor: '#242A4D',
+
         WebViewButtonBackgroundColor: '#4F8EF7',
         WebViewButtonTextColor: '#fff',
 
@@ -95,17 +91,13 @@ const themes = {
         SwitchTrackOn: '#274C87',
         SwitchTrackOff: '#6C7189',
 
-        DeviceInfoHeaderColor: '#fafaff',
-        DeviceInfoHLabelColor: '#A5B9D1',
-        DeviceInfoValueColor: '#CDD5F3',
-        DeviceInfoBorderColor: '#B7C6E5',
-        DeviceInfoBackgroundColor: 'rgba(24, 34, 56, 0.85)',
-        DeviceInfoShadowColor: '#122143',
+        SettingsScreenCardsBorderColor: '#B7C6E5',
+        SettingsScreenCardsShadowColor: '#122143',
+        SettingsScreenCardsLabelColor: '#fafaff',
 
-        WebViewBlockBorderColor: '#E3EAF8',
-        WebViewBlockBackgroundColor: 'rgba(28,32,44,0.45)',
-        WebViewBlockShadowColor: '#232A3D',
-        WebViewTextColor:'#fafaff',
+        DeviceInfoLabelColor: '#A5B9D1',
+        DeviceInfoValueColor: '#CDD5F3',
+
         WebViewButtonBackgroundColor: '#233878',
         WebViewButtonTextColor: '#EAF2FF',
 

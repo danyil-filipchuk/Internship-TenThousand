@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     },
     locationLabel: {
         fontSize: 20,
-        marginRight: 10,
+        marginRight: 5,
         fontFamily: 'Montserrat-Regular',
     },
     locationText: {
