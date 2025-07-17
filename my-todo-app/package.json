@@ -30,6 +30,8 @@
     "expo-splash-screen": "~0.30.10",
     "expo-status-bar": "~2.2.3",
     "i18next": "^25.3.2",
+    "mobx": "^6.13.7",
+    "mobx-react-lite": "^4.1.0",
     "react": "19.0.0",
     "react-i18next": "^15.6.0",
     "react-native": "0.79.5",

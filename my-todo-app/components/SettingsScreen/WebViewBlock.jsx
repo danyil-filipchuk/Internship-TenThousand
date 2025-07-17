@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import { useTheme } from "../../theme/theme-context"
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 
 export function WebViewBlock({ navigation }) {

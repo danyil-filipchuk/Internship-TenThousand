@@ -15,7 +15,7 @@ import { loadTasksFromStorage, saveTasksToStorage } from './utils/storage';
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import SettingsIcon from './assets/images/IconSettings.svg';
 import { ThemeProvider, useTheme } from './theme/theme-context';
-import { ThemedStatusBar } from "./ThemedStatusBar";
+import { ThemedStatusBar } from "./screens/statusBar/ThemedStatusBar";
 import "./localization/localization";
 import { useTranslation } from 'react-i18next';
 

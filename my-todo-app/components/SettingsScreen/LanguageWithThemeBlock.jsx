@@ -4,9 +4,17 @@ import i18n from "../../localization/localization";
 import { useTheme } from "../../theme/theme-context";
 import { useTranslation } from 'react-i18next';
 
-export function LanguageWithThemeBlock() {
+import { observer } from "mobx-react-lite";
+import { languageStore } from "../../localization/languageStore"
+
+export const LanguageWithThemeBlock = observer(() => {
     const { theme, themeName, toggleTheme } = useTheme();
     const { t } = useTranslation();
+
+    const handleLanguageChange = (lang) => {
+        languageStore.setLanguage(lang);
+        i18n.changeLanguage(lang); // щоб переклади одразу працювали
+    };
 
     return (
         <View style={[
@@ -24,21 +32,21 @@ export function LanguageWithThemeBlock() {
                         {t('Language')}
                     </Text>
                     <View style={styles.langSwitchRow}>
-                        <TouchableOpacity onPress={() => i18n.changeLanguage('en')}>
+                        <TouchableOpacity onPress={() => handleLanguageChange('en')}>
                             <Text style={[
                                 styles.langButton,
                                 {
-                                    color: i18n.language === 'en' ? '#4F8EF7' : '#888',
-                                    fontWeight: i18n.language === 'en' ? 'bold' : 'normal'
+                                    color: languageStore.language === 'en' ? '#4F8EF7' : '#888',
+                                    fontWeight: languageStore.language === 'en' ? 'bold' : 'normal'
                                 }
                             ]}>EN</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => i18n.changeLanguage('ua')}>
+                        <TouchableOpacity onPress={() => handleLanguageChange('ua')}>
                             <Text style={[
                                 styles.langButton,
                                 {
-                                    color: i18n.language === 'ua' ? '#4F8EF7' : '#888',
-                                    fontWeight: i18n.language === 'ua' ? 'bold' : 'normal'
+                                    color: languageStore.language === 'ua' ? '#4F8EF7' : '#888',
+                                    fontWeight: languageStore.language === 'ua' ? 'bold' : 'normal'
                                 }
                             ]}>UA</Text>
                         </TouchableOpacity>
@@ -72,7 +80,7 @@ export function LanguageWithThemeBlock() {
             </View>
         </View>
     );
-}
+});
 
 const styles = StyleSheet.create({
     languageWithThemeBlock: {

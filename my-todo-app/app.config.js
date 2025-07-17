@@ -6,26 +6,26 @@ export default {
     slug: "my-todo-app",
     version: "1.0.0",
     orientation: "portrait",
-    icon: "./assets/images/splash.png",
+    icon: "./assets/images/splash/IconSplash.png",
     userInterfaceStyle: "light",
     newArchEnabled: true,
     splash: {
-      image: "./assets/images/images.png",
+      image: "./assets/images/splash/IconSplash.png",
       resizeMode: "contain",
-      backgroundColor: "#000000"
+      backgroundColor: "#000000",
     },
     ios: {
       supportsTablet: true
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: "./assets/adaptive-icon.png",
+        foregroundImage: "",
         backgroundColor: "#ffffff"
       },
       edgeToEdgeEnabled: true
     },
     web: {
-      favicon: "./assets/favicon.png"
+      favicon: ""
     },
     plugins: ["expo-font"],
     extra: {

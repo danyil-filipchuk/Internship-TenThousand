@@ -1,5 +1,5 @@
 import {StatusBar } from "react-native";
-import {useTheme} from "./theme/theme-context";
+import {useTheme} from "../../theme/theme-context";
 
 export function ThemedStatusBar() {
     const { themeName, theme} = useTheme();
